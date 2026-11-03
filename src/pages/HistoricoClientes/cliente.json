@@ -1,0 +1,71 @@
+{
+  "id": "cli-timeline-001",
+  "nome": "Comercial Rio Bonito",
+  "tenantId": "vetor-sul",
+  "tenantNome": "Vetor Sul",
+  "eventos": [
+    {
+      "data": "2026-09-01T09:12:00",
+      "tipo": "health_score",
+      "titulo": "Score recalculado: 47 (risco)"
+    },
+    {
+      "data": "2026-08-28T14:03:00",
+      "tipo": "flag",
+      "titulo": "Sem pedidos há mais de 21 dias"
+    },
+    {
+      "data": "2026-08-25T11:20:00",
+      "tipo": "tarefa_status",
+      "titulo": "Tarefa 'Ligar para renovar pedido' marcada como falha"
+    },
+    {
+      "data": "2026-08-20T16:45:00",
+      "tipo": "tarefa_vista",
+      "titulo": "Tarefa 'Ligar para renovar pedido' visualizada pelo vendedor"
+    },
+    {
+      "data": "2026-08-18T08:30:00",
+      "tipo": "tarefa_criada",
+      "titulo": "Tarefa gerada: Ligar para renovar pedido"
+    },
+    {
+      "data": "2026-08-10T10:00:00",
+      "tipo": "compra",
+      "titulo": "Pedido realizado",
+      "valor": 4200
+    },
+    {
+      "data": "2026-07-22T15:10:00",
+      "tipo": "recomendacao",
+      "titulo": "Recomendação: oferecer desconto de recompra"
+    },
+    {
+      "data": "2026-07-15T09:00:00",
+      "tipo": "health_score",
+      "titulo": "Score recalculado: 58 (atenção)"
+    },
+    {
+      "data": "2026-07-02T13:40:00",
+      "tipo": "compra",
+      "titulo": "Pedido realizado",
+      "valor": 6800
+    },
+    {
+      "data": "2026-06-20T10:15:00",
+      "tipo": "bonificacao",
+      "titulo": "Bonificação aplicada",
+      "valor": 350
+    },
+    {
+      "data": "2026-06-05T09:00:00",
+      "tipo": "nota",
+      "titulo": "Cliente reclamou de atraso na última entrega"
+    },
+    {
+      "data": "2026-06-01T09:00:00",
+      "tipo": "health_score",
+      "titulo": "Score recalculado: 78 (saudável)"
+    }
+  ]
+}
