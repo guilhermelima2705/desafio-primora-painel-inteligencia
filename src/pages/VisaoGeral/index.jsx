@@ -1,8 +1,10 @@
 import { Col, Row, Typography } from 'antd';
 import UnidadeCard from '../../components/UnidadeCard';
-import { unidades } from './unidades';
+import dataset from '../../data/dataset_painel_multitenant.json';
 
 const { Title, Paragraph } = Typography;
+
+const unidades = dataset.tenants;
 
 export default function VisaoGeral() {
   return (
@@ -14,8 +16,8 @@ export default function VisaoGeral() {
         sucessos no funil das unidades regionais.
       </Paragraph>
       <Paragraph type="secondary">
-        Dados fictícios do dataset oficial da Primora, utilizados para
-        demonstração acadêmica.
+        Dados fictícios do arquivo dataset_painel_multitenant.json, utilizados
+        para demonstração acadêmica.
       </Paragraph>
 
       <Row gutter={[16, 16]}>
@@ -26,7 +28,7 @@ export default function VisaoGeral() {
               porte={unidade.porte}
               carteiraTotalClientes={unidade.carteiraTotalClientes}
               engagementEvents7d={unidade.engagementEvents7d}
-              sucessosFunil90d={unidade.sucessosFunil90d}
+              sucessosFunil90d={unidade.funnel90d.sucesso}
             />
           </Col>
         ))}
