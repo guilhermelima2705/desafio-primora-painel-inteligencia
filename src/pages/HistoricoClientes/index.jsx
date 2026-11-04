@@ -1,6 +1,8 @@
 import { Card, Col, Row, Typography } from 'antd';
 import ClienteTimeline from '../../components/ClienteTimeline';
-import cliente from './cliente.json';
+import dataset from '../../data/dataset_painel_multitenant.json';
+
+const cliente = dataset.clientes.find((cliente) => cliente.id === 'cli-timeline-001');
 
 const { Title, Paragraph, Text } = Typography;
 const estilosCard = {
