@@ -1,26 +1,18 @@
-
-import { Drawer, Layout, Menu, Typography } from 'antd';
+import { Drawer, Layout, Menu } from 'antd';
 import {
-  DashboardOutlined,
+  AppstoreOutlined,
   BarChartOutlined,
   HistoryOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router';
+import primoraLogo from '../../assets/primora-logo.png';
 
 const { Sider } = Layout;
-const { Title, Text } = Typography;
 
 const menuItems = [
-  {
-    key: '/',
-    icon: <DashboardOutlined />,
-    label: 'Visão Geral',
-  },
-  {
-    key: '/comparativo',
-    icon: <BarChartOutlined />,
-    label: 'Comparativo',
-  },
+  { key: '/', icon: <AppstoreOutlined />, label: 'Visão Geral' },
+  { key: '/comparativo', icon: <BarChartOutlined />, label: 'Comparativo' },
   {
     key: '/historico-clientes',
     icon: <HistoryOutlined />,
@@ -28,41 +20,42 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar({ isDesktop, open, onClose }) {
+export default function Sidebar({ isDesktop, collapsed, open, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const compact = isDesktop && collapsed;
 
   const navigation = (
     <>
-      <div style={{ padding: '24px 16px', textAlign: 'center' }}>
-        <Title level={4} style={{ color: '#fff', margin: 0 }}>
-          PRIMORA
-        </Title>
-        <Text style={{ color: '#19C7E8', fontSize: 12 }}>
-          Painel de Inteligência
-        </Text>
-      </div>
+      <div className={`app-brand${compact ? ' app-brand-compact' : ''}`}>
+        <div className="app-brand-logo"><img src={primoraLogo} alt="Primora — Soluções em Tecnologia" /></div>
 
-      <Menu
-        theme="dark"
-        mode="inline"
-        selectedKeys={[location.pathname]}
-        items={menuItems}
-        onClick={({ key }) => {
-          navigate(key);
-          onClose();
-        }}
-        style={{ background: '#0B1733' }}
-      />
+      </div>
+      <nav aria-label="Navegação principal" className="app-navigation">
+        <Menu
+          theme="dark"
+          mode="inline"
+          inlineCollapsed={compact}
+          selectedKeys={[location.pathname]}
+          items={menuItems}
+          onClick={({ key }) => {
+            navigate(key);
+            onClose();
+          }}
+        />
+      </nav>
     </>
   );
 
   if (isDesktop) {
     return (
       <Sider
+        className="app-sidebar"
         theme="dark"
         width={260}
-        style={{ background: '#0B1733', minHeight: '100vh' }}
+        collapsedWidth={80}
+        collapsed={collapsed}
+        trigger={null}
       >
         {navigation}
       </Sider>
@@ -80,10 +73,10 @@ export default function Sidebar({ isDesktop, open, onClose }) {
       mask={{ closable: true }}
       styles={{
         section: { background: '#0B1733', color: '#fff' },
-        header: { borderBottom: '1px solid #174B78' },
+        header: { borderBottom: '1px solid rgba(255, 255, 255, 0.1)' },
         body: { padding: 0 },
       }}
-      closeIcon={<span style={{ color: '#fff' }} aria-label="Fechar menu">×</span>}
+      closeIcon={<CloseOutlined style={{ color: '#fff' }} />}
     >
       {navigation}
     </Drawer>
