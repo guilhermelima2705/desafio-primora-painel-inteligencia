@@ -72,7 +72,7 @@ export default function Sidebar({ isDesktop, collapsed, open, onClose }) {
       keyboard
       mask={{ closable: true }}
       styles={{
-        section: { background: '#0B1733', color: '#fff' },
+        section: { background: '#122D48', color: '#fff' },
         header: { borderBottom: '1px solid rgba(255, 255, 255, 0.1)' },
         body: { padding: 0 },
       }}

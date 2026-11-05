@@ -30,6 +30,7 @@ export default function ClienteTimeline({ eventos = [] }) {
 
   return (
     <Timeline
+      className="cliente-timeline"
       items={eventosOrdenados.map((evento) => {
         const tipo = tiposEvento[evento.tipo] ?? {
           rotulo: evento.tipo,
@@ -39,7 +40,7 @@ export default function ClienteTimeline({ eventos = [] }) {
         return {
           key: `${evento.data}-${evento.tipo}-${evento.titulo}`,
           content: (
-            <div style={{ minWidth: 0, overflowWrap: 'anywhere' }}>
+            <div className="timeline-event">
               <div
                 style={{
                   display: 'flex',

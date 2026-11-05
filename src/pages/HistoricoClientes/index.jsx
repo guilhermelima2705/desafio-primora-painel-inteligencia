@@ -11,7 +11,7 @@ const estilosCard = {
 
 export default function HistoricoClientes() {
   return (
-    <div>
+    <div className="historico-page">
       <Title level={2}>Histórico de Clientes</Title>
 
       <Paragraph type="secondary">

@@ -32,7 +32,7 @@ body {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #0B1733;
+  background: #122D48;
   box-shadow: 4px 0 20px rgba(11, 23, 51, 0.06);
 }
 
@@ -82,7 +82,7 @@ body {
 }
 
 .app-navigation .ant-menu {
-  background: #0B1733;
+  background: #122D48;
   border-inline-end: 0;
 }
 
@@ -189,4 +189,36 @@ body {
   .app-sidebar.ant-layout-sider {
     transition: none;
   }
+}
+
+/* Refinamento visual: marca original preservada em sua área de respiro. */
+.app-brand-logo { padding: 8px 4px; border-radius: 10px; box-shadow: 0 4px 16px #00000014; }
+.app-brand-compact .app-brand-logo { padding: 0; }
+.app-content h2.ant-typography { margin-top: 0; letter-spacing: -0.5px; }
+.app-content .ant-card { border-color: #DCE5EF; box-shadow: 0 3px 14px #102C4606; }
+.app-content .ant-card-head { color: #203C57; }
+.app-navigation .ant-menu-item { color: #CBD8E6; }
+.app-navigation .ant-menu-item-selected { color: #fff; }
+.app-navigation .ant-menu-item:focus-visible, .app-menu-button:focus-visible { outline: 3px solid #19C7E8; outline-offset: -3px; }
+.unidade-card.ant-card { overflow: hidden; border-top: 3px solid #276895; }
+.unidade-card .ant-card-head { background: #EDF3F9; }
+.unidade-card .ant-card-head-title { font-size: 16px; }
+.unidade-card .ant-card-body { padding: 20px; }
+.unidade-metrics { display: grid; gap: 16px; }
+.unidade-metric { padding: 12px; border-radius: 10px; background: #F3F7FC; border: 1px solid #E2EAF3; }
+.unidade-metric .ant-statistic-title { color: #52647A; font-size: 12px; min-height: 38px; }
+.unidade-metric .ant-statistic-content { color: #203C57; font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.unidade-metric .ant-statistic-content-prefix { font-size: 18px; margin-inline-end: 10px; }
+.unidade-metric-engajamento { background: #EFF9FA; border-color: #D6ECEF; }
+.unidade-metric-engajamento .ant-statistic-content { color: #146777; }
+.unidade-metric-sucesso { background: #F0F8F4; border-color: #DCEDE3; }
+.unidade-metric-sucesso .ant-statistic-content { color: #256846; }
+.historico-page .ant-card-head { background: #EDF3F9; }
+.cliente-timeline .timeline-event { min-width: 0; overflow-wrap: anywhere; padding: 14px 16px 1px; margin-bottom: 16px; border: 1px solid #DCE5EF; border-left: 3px solid #5B87AD; border-radius: 10px; background: #F7FAFD; }
+.cliente-timeline .timeline-event .ant-typography-secondary { color: #52647A; font-size: 12px; }
+.cliente-timeline .timeline-event p { color: #203C57; }
+@media (max-width: 575.98px) {
+ .unidade-card .ant-card-body, .historico-page .ant-card-body { padding: 16px; }
+ .unidade-metric .ant-statistic-title { min-height: 0; }
+ .cliente-timeline .timeline-event { padding: 12px 12px 1px; }
 }
