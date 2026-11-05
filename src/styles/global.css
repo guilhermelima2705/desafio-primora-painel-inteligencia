@@ -12,7 +12,7 @@ body,
 
 body {
   font-family: Inter, Arial, sans-serif;
-  background-color: #F5F8FC;
+  background-color: #EFF5F7;
   color: #0B1733;
   -webkit-font-smoothing: antialiased;
 }
@@ -32,7 +32,7 @@ body {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #122D48;
+  background: #103D4B;
   box-shadow: 4px 0 20px rgba(11, 23, 51, 0.06);
 }
 
@@ -82,7 +82,7 @@ body {
 }
 
 .app-navigation .ant-menu {
-  background: #122D48;
+  background: #103D4B;
   border-inline-end: 0;
 }
 
@@ -125,7 +125,7 @@ body {
   margin: 0;
   padding: 3px 10px;
   color: #475467;
-  background: #F5F8FC;
+  background: #EFF5F7;
   border: 1px solid #E8ECF2;
   border-radius: 6px;
   font-size: 12px;
@@ -191,34 +191,89 @@ body {
   }
 }
 
-/* Refinamento visual: marca original preservada em sua área de respiro. */
-.app-brand-logo { padding: 8px 4px; border-radius: 10px; box-shadow: 0 4px 16px #00000014; }
+
+/* Dashboard analytics — composição e identidade visual */
+.app-content.ant-layout-content { padding: 30px; max-width: 1680px; margin-inline: auto; }
+.app-sidebar.ant-layout-sider { background: linear-gradient(175deg, #103D4B, #0D2C3B); box-shadow: none; }
+.app-navigation .ant-menu { background: transparent; }
+.app-brand { height: 108px; padding: 22px 32px; border-bottom-color: #FFFFFF12; }
+.app-brand-logo { border-radius: 6px; background: #F4FAFB; padding: 3px; }
+.app-brand-logo img { mix-blend-mode: multiply; }
+.app-brand-compact { padding: 16px; }
 .app-brand-compact .app-brand-logo { padding: 0; }
-.app-content h2.ant-typography { margin-top: 0; letter-spacing: -0.5px; }
-.app-content .ant-card { border-color: #DCE5EF; box-shadow: 0 3px 14px #102C4606; }
-.app-content .ant-card-head { color: #203C57; }
-.app-navigation .ant-menu-item { color: #CBD8E6; }
-.app-navigation .ant-menu-item-selected { color: #fff; }
-.app-navigation .ant-menu-item:focus-visible, .app-menu-button:focus-visible { outline: 3px solid #19C7E8; outline-offset: -3px; }
-.unidade-card.ant-card { overflow: hidden; border-top: 3px solid #276895; }
-.unidade-card .ant-card-head { background: #EDF3F9; }
-.unidade-card .ant-card-head-title { font-size: 16px; }
-.unidade-card .ant-card-body { padding: 20px; }
-.unidade-metrics { display: grid; gap: 16px; }
-.unidade-metric { padding: 12px; border-radius: 10px; background: #F3F7FC; border: 1px solid #E2EAF3; }
-.unidade-metric .ant-statistic-title { color: #52647A; font-size: 12px; min-height: 38px; }
-.unidade-metric .ant-statistic-content { color: #203C57; font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
-.unidade-metric .ant-statistic-content-prefix { font-size: 18px; margin-inline-end: 10px; }
-.unidade-metric-engajamento { background: #EFF9FA; border-color: #D6ECEF; }
-.unidade-metric-engajamento .ant-statistic-content { color: #146777; }
-.unidade-metric-sucesso { background: #F0F8F4; border-color: #DCEDE3; }
-.unidade-metric-sucesso .ant-statistic-content { color: #256846; }
-.historico-page .ant-card-head { background: #EDF3F9; }
-.cliente-timeline .timeline-event { min-width: 0; overflow-wrap: anywhere; padding: 14px 16px 1px; margin-bottom: 16px; border: 1px solid #DCE5EF; border-left: 3px solid #5B87AD; border-radius: 10px; background: #F7FAFD; }
-.cliente-timeline .timeline-event .ant-typography-secondary { color: #52647A; font-size: 12px; }
-.cliente-timeline .timeline-event p { color: #203C57; }
-@media (max-width: 575.98px) {
- .unidade-card .ant-card-body, .historico-page .ant-card-body { padding: 16px; }
- .unidade-metric .ant-statistic-title { min-height: 0; }
- .cliente-timeline .timeline-event { padding: 12px 12px 1px; }
-}
+.navigation-caption { padding: 26px 28px 0; color: #9ABFC9; letter-spacing: 1.5px; font-size: 10px; font-weight: 700; }
+.app-navigation { padding-top: 12px; }
+.app-navigation .ant-menu-item { margin-bottom: 10px; }
+.app-navigation .ant-menu-item-selected { box-shadow: inset 3px 0 0 #49DAE4, 0 5px 14px #00000012; }
+.app-header.ant-layout-header { background: #FFFFFFDD; border-color: #E1EBEF; }
+.app-header-caption.ant-typography { color: #173F50; font-weight: 600; letter-spacing: 0.3px; }
+.app-academic-badge.ant-tag { background: #EAF5F5; border: 0; color: #286575; border-radius: 20px; }
+.dashboard-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 26px; }
+.eyebrow { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #327887; margin-bottom: 8px; }
+.dashboard-heading h2.ant-typography { margin: 0 0 8px; font-size: clamp(24px, 2.5vw, 32px); letter-spacing: -1px; line-height: 1.2; color: #123B4D; }
+.dashboard-heading .ant-typography { margin-bottom: 0; color: #607D89; max-width: 640px; }
+.dataset-stamp { flex-shrink: 0; padding: 12px 16px; border: 1px solid #DCE9EC; border-radius: 12px; background: #FFFFFFA0; color: #5D7A85; font-size: 11px; }
+.dataset-stamp strong { display: block; color: #294F5D; font-size: 11px; font-weight: 500; margin-top: 3px; }
+.status-dot { display: inline-block; height: 6px; width: 6px; border-radius: 50%; background: #248A7A; margin-right: 7px; }
+.unit-grid { margin-bottom: 24px; }
+.unit-card.ant-card { height: 100%; border: 0; color: #F1FAFC; background: #12465B; overflow: hidden; box-shadow: 0 6px 20px #123D4B0C; }
+.unit-card.unit-tone-1 { background: #176375; }
+.unit-card.unit-tone-2 { background: #1E716F; }
+.unit-card.unit-tone-3 { background: #285C76; }
+.unit-card .ant-card-body { padding: 22px; }
+.unit-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.unit-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #FFFFFF14; font-size: 18px; color: #7FE2E8; }
+.unit-card .ant-tag { margin: 0; background: #FFFFFF12; border: 1px solid #FFFFFF25; color: #D4EBEF; font-size: 10px; border-radius: 20px; }
+.unit-card h3 { color: #D8ECEF; font-size: 14px; font-weight: 500; margin: 18px 0 4px; }
+.unit-primary { font-size: 42px; line-height: 1.2; font-weight: 650; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+.unit-label { color: #BBD8DF; font-size: 11px; margin: 4px 0 20px; }
+.unit-secondary { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #FFFFFF22; padding-top: 16px; gap: 12px; }
+.unit-secondary > div { display: grid; grid-template-columns: 16px 1fr; gap: 3px 6px; align-items: center; }
+.unit-secondary .anticon { color: #7FE2E8; font-size: 12px; }
+.unit-secondary strong { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.unit-secondary span:last-child { grid-column: 1 / -1; font-size: 10px; color: #C5DEE4; }
+.overview-charts { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.analytics-panel.ant-card, .ranking-summary.ant-card, .client-profile.ant-card, .comparativo-card.ant-card { border: 1px solid #DFEAEE; box-shadow: 0 4px 22px #123D4B04; overflow: hidden; }
+.analytics-panel .ant-card-head, .comparativo-card .ant-card-head, .ranking-summary .ant-card-head { border-bottom: 0; min-height: 64px; padding: 0 24px; }
+.analytics-panel .ant-card-head-title, .comparativo-card .ant-card-head-title, .ranking-summary .ant-card-head-title { color: #1B4555; font-size: 15px; white-space: normal; padding-block: 16px; }
+.analytics-panel .ant-card-body { padding-top: 0; }
+.panel-period { display: inline-block; color: #5A7E8A; background: #EFF6F8; border-radius: 20px; padding: 4px 9px; font-size: 10px; font-weight: 500; }
+.panel-description { color: #627F8B; font-size: 12px; margin: 0 0 14px; line-height: 1.7; }
+.chart-frame { width: 100%; min-width: 0; height: 280px; }
+.dark-panel.ant-card { background: linear-gradient(130deg, #103E53, #154F60); border: 0; }
+.dark-panel .ant-card-head-title { color: #E3F4F8; }
+.dark-panel .panel-description { color: #B5D2DC; }
+.dark-panel .panel-period { background: #FFFFFF12; color: #BFE9EF; }
+.chart-data { font-size: 11px; margin-top: 12px; color: #4D7281; }
+.chart-data summary { cursor: pointer; padding-block: 5px; }
+.chart-data summary:focus-visible, .data-scroll:focus-visible { outline: 2px solid #22A5B9; outline-offset: 3px; }
+.dark-panel .chart-data { color: #C0DCE4; }
+.data-scroll { overflow: auto; max-height: 260px; }
+.chart-data table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; }
+.chart-data caption { text-align: left; padding: 8px 0; }
+.chart-data td, .chart-data th { padding: 7px 10px; border-bottom: 1px solid #9CBEC533; white-space: nowrap; }
+.chart-data td { text-align: right; font-variant-numeric: tabular-nums; }
+.source-note { color: #6B8590; font-size: 11px; line-height: 1.8; margin: 20px 0 0; }
+.history-grid { display: grid; grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2fr); gap: 24px; align-items: start; }
+.client-sidebar { position: sticky; top: 24px; }
+.client-profile.ant-card { background: linear-gradient(155deg, #103E53, #1D6570); color: #D2E7ED; border: 0; }
+.profile-icon { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 18px; background: #FFFFFF15; color: #7DE2E6; font-size: 26px; margin-bottom: 26px; }
+.client-profile .eyebrow { color: #92CED8; }
+.client-profile h3 { margin: 0 0 28px; font-size: 25px; line-height: 1.3; color: #FFFFFF; letter-spacing: -0.5px; overflow-wrap: anywhere; }
+.client-profile dl { border-top: 1px solid #FFFFFF22; padding-top: 20px; }
+.client-profile dt { font-size: 11px; color: #B5D5DE; }
+.client-profile dd { margin: 5px 0 22px; color: #FFFFFF; font-weight: 600; }
+.client-profile .ant-tag { background: #FFFFFF12; border-color: #FFFFFF22; color: #C5E4EB; border-radius: 20px; font-size: 10px; }
+.client-journey { display: grid; gap: 24px; min-width: 0; }
+.client-health .chart-frame { height: 200px; }
+.timeline-panel .ant-card-body { padding-top: 0; }
+.cliente-timeline { margin-top: 24px; }
+.timeline-event { overflow-wrap: anywhere; min-width: 0; margin-bottom: 12px; padding: 0 0 16px 12px; border-bottom: 1px solid #E6EFF2; }
+.timeline-event .ant-typography-secondary { font-size: 11px; color: #6D8691; }
+.timeline-event p { color: #234C5C; font-size: 13px; }
+.timeline-event .ant-tag { border-radius: 20px; font-size: 10px; }
+.event-value { display: inline-block; padding: 4px 10px; background: #EAF6F2; color: #256E60; font-size: 12px; font-weight: 600; border-radius: 7px; }
+@media (min-width: 1600px) { .unit-card .ant-card-body { padding: 26px; } .chart-frame { height: 320px; } }
+@media (max-width: 1199.98px) { .overview-charts { grid-template-columns: minmax(0,1fr); } .history-grid { grid-template-columns: 240px minmax(0,1fr); } }
+@media (max-width: 767.98px) { .app-content.ant-layout-content { padding: 20px; } .dashboard-heading { align-items: start; flex-direction: column; gap: 14px; } .dataset-stamp { padding: 8px 12px; } .dataset-stamp strong { display: inline; margin-left: 10px; } .history-grid { grid-template-columns: minmax(0,1fr); } .client-sidebar { position: static; } .client-profile h3 { margin-bottom: 16px; } .client-profile dl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; } .client-profile dt { grid-row: 1; } .client-profile dd { grid-row: 2; margin: 0 0 10px; } .profile-icon { float: right; margin: 0 0 16px 16px; } }
+@media (max-width: 575.98px) { .app-content.ant-layout-content { padding: 20px 16px; } .analytics-panel .ant-card-body, .ranking-summary .ant-card-body { padding-inline: 16px; } .analytics-panel .ant-card-head, .ranking-summary .ant-card-head { padding-inline: 16px; } .chart-frame { height: 280px; } .overview-charts, .history-grid, .client-journey { gap: 16px; } .unit-card .ant-card-body { padding: 20px; } .unit-primary { font-size: 38px; } .timeline-event { padding-left: 4px; } }

@@ -39,6 +39,7 @@ export default function ClienteTimeline({ eventos = [] }) {
 
         return {
           key: `${evento.data}-${evento.tipo}-${evento.titulo}`,
+          color: ({ blue: '#277DA8', orange: '#B67618', purple: '#7961A8', cyan: '#168A9D', geekblue: '#386E9D', green: '#258775', gold: '#A77B20', magenta: '#AD5B84' })[tipo.cor] ?? '#6E8490',
           content: (
             <div className="timeline-event">
               <div
@@ -62,6 +63,7 @@ export default function ClienteTimeline({ eventos = [] }) {
               <Paragraph style={{ marginBottom: 16 }}>
                 {evento.titulo}
               </Paragraph>
+              {evento.valor != null && <div className="event-value">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(evento.valor)}</div>}
             </div>
           ),
         };

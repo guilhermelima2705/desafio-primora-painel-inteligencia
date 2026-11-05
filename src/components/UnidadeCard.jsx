@@ -1,46 +1,11 @@
-import { Card, Statistic, Tag } from 'antd';
+import { Card, Tag } from 'antd';
 import { TeamOutlined, ThunderboltOutlined, CheckCircleOutlined } from '@ant-design/icons';
+const numero = new Intl.NumberFormat('pt-BR');
 
-export default function UnidadeCard({
-  nome,
-  porte,
-  carteiraTotalClientes,
-  engagementEvents7d,
-  sucessosFunil90d,
-}) {
-  return (
-    <Card
-      className="unidade-card"
-      title={nome}
-      style={{ height: '100%' }}
-      styles={{ title: { whiteSpace: 'normal', paddingBlock: 12 } }}
-    >
-      <div className="unidade-metrics">
-        <div>
-          <Tag color="cyan">Porte: {porte}</Tag>
-        </div>
-        <Statistic
-          className="unidade-metric unidade-metric-carteira"
-          prefix={<TeamOutlined aria-hidden="true" />}
-          title="Carteira total de clientes"
-          value={carteiraTotalClientes}
-          groupSeparator="."
-        />
-        <Statistic
-          className="unidade-metric unidade-metric-engajamento"
-          prefix={<ThunderboltOutlined aria-hidden="true" />}
-          title="Eventos de engajamento (7 dias)"
-          value={engagementEvents7d}
-          groupSeparator="."
-        />
-        <Statistic
-          className="unidade-metric unidade-metric-sucesso"
-          prefix={<CheckCircleOutlined aria-hidden="true" />}
-          title="Sucessos no funil (90 dias)"
-          value={sucessosFunil90d}
-          groupSeparator="."
-        />
-      </div>
-    </Card>
-  );
+export default function UnidadeCard({ nome, porte, carteiraTotalClientes, engagementEvents7d, sucessosFunil90d, indice = 0 }) {
+  return <Card className={`unit-card unit-tone-${indice}`}>
+    <div className="unit-card-top"><span className="unit-icon"><TeamOutlined aria-hidden="true"/></span><Tag>{porte}</Tag></div>
+    <h3>{nome}</h3><div className="unit-primary">{numero.format(carteiraTotalClientes)}</div><p className="unit-label">Clientes na carteira</p>
+    <div className="unit-secondary"><div><ThunderboltOutlined aria-hidden="true"/><strong>{numero.format(engagementEvents7d)}</strong><span>Eventos · 7 dias</span></div><div><CheckCircleOutlined aria-hidden="true"/><strong>{numero.format(sucessosFunil90d)}</strong><span>Sucessos · 90 dias</span></div></div>
+  </Card>;
 }
