@@ -8,8 +8,8 @@ import './styles/global.css';
 
 const theme = {
   token: {
-    colorPrimary: '#4A91D8',
-    colorInfo: '#19C7E8',
+    colorPrimary: '#276895',
+    colorInfo: '#276895',
     colorText: '#0B1733',
     colorBgLayout: '#F5F8FC',
     colorTextSecondary: '#667085',
@@ -22,6 +22,8 @@ const theme = {
     fontFamily: 'Inter, Arial, sans-serif',
   },
   components: {
+    Card: { headerBg: '#F7FAFD' },
+    Table: { headerBg: '#EAF1F8', headerColor: '#203C57', borderColor: '#DCE5EF', rowHoverBg: '#E9F3FA' },
     Menu: {
       itemHeight: 48,
       itemBorderRadius: 10,
@@ -29,10 +31,10 @@ const theme = {
       collapsedIconSize: 20,
       darkItemColor: '#B7C5DA',
       darkItemHoverBg: '#122440',
-      darkItemBg: '#0B1733',
-      darkSubMenuItemBg: '#0B1733',
+      darkItemBg: '#122D48',
+      darkSubMenuItemBg: '#122D48',
       darkItemSelectedBg: '#174B78',
-      darkItemSelectedColor: '#19C7E8',
+      darkItemSelectedColor: '#FFFFFF',
     },
   },
 };
