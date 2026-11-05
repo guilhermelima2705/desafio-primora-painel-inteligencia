@@ -31,6 +31,7 @@ export default function Sidebar({ isDesktop, collapsed, open, onClose }) {
         <div className="app-brand-logo"><img src={primoraLogo} alt="Primora — Soluções em Tecnologia" /></div>
 
       </div>
+      {!compact && <div className="navigation-caption">WORKSPACE · PRIMORA</div>}
       <nav aria-label="Navegação principal" className="app-navigation">
         <Menu
           theme="dark"
@@ -72,7 +73,7 @@ export default function Sidebar({ isDesktop, collapsed, open, onClose }) {
       keyboard
       mask={{ closable: true }}
       styles={{
-        section: { background: '#122D48', color: '#fff' },
+        section: { background: '#103D4B', color: '#fff' },
         header: { borderBottom: '1px solid rgba(255, 255, 255, 0.1)' },
         body: { padding: 0 },
       }}

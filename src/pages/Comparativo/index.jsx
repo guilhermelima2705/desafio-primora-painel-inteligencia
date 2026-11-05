@@ -6,8 +6,9 @@ import {
 import dataset from '../../data/dataset_painel_multitenant.json';
 import { criarComparativo } from './indicadores';
 import './comparativo.css';
+import DashboardHeading from '../../components/DashboardHeading';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 const unidades = criarComparativo(dataset.tenants);
 const numero = new Intl.NumberFormat('pt-BR');
 const formatoPercentual = new Intl.NumberFormat('pt-BR', {
@@ -41,16 +42,13 @@ const colunas = [
 export default function Comparativo() {
   return (
     <div className="comparativo-page">
-      <Title level={2}>Comparativo entre Unidades</Title>
-      <Paragraph type="secondary">
-        Compare a proporção de clientes em risco e o sucesso das tarefas
-        comerciais, considerando as diferenças de porte entre as unidades.
-      </Paragraph>
-      <Paragraph type="secondary">
-        Dados fictícios do dataset oficial da Primora. As posições consideram
-        o risco proporcional, do maior para o menor.
-      </Paragraph>
-
+      <DashboardHeading eyebrow="Análise entre unidades" title="Comparativo entre Unidades">Risco e sucesso comercial, com as diferenças de porte consideradas no cálculo.</DashboardHeading>
+      <div className="comparison-grid">
+      <aside className="comparison-context">
+      <Card className="ranking-summary" title="Indicadores por unidade">
+        <p className="panel-description">Ordenação pelo risco proporcional, do maior para o menor.</p>
+        {unidades.map((u,i) => <div className="ranking-item" key={u.id}><span className="ranking-position">{u.riscoPercentual == null ? '—' : i+1}</span><div><strong>{u.nome}</strong><span>Risco <b>{exibirPercentual(u.riscoPercentual)}</b> · Sucesso <b>{exibirPercentual(u.sucessoPercentual)}</b></span></div></div>)}
+      </Card>
       <Alert
         title="Comparação proporcional à carteira"
         description="O ranking usa a soma de clientes em risco e em estado crítico dividida pela carteira total. Assim, uma unidade maior não recebe prioridade apenas por ter mais clientes."
@@ -58,6 +56,7 @@ export default function Comparativo() {
         showIcon
       />
 
+      </aside>
       <Card title="Ranking de risco proporcional" className="comparativo-card">
         <Paragraph type="secondary">
           Percentual da carteira em risco ou estado crítico. Barras maiores
@@ -72,6 +71,7 @@ export default function Comparativo() {
               margin={{ top: 8, right: 44, bottom: 8, left: 0 }}
               accessibilityLayer
             >
+              <defs><linearGradient id="risk-bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#126078"/><stop offset="100%" stopColor="#23B7CA"/></linearGradient></defs>
               <CartesianGrid stroke="#E8ECF2" horizontal={false} />
               <XAxis type="number" domain={[0, 100]} ticks={[0, 25, 50, 75, 100]}
                 tickFormatter={(valor) => `${valor}%`} tick={{ fontSize: 11, fill: '#52647A' }}
@@ -82,7 +82,7 @@ export default function Comparativo() {
                 contentStyle={{ borderRadius: 10, border: '1px solid #D7E2ED', boxShadow: '0 6px 20px #102C4614', color: '#0B1733' }}
                 labelStyle={{ fontWeight: 600, marginBottom: 6 }}
                 formatter={(valor) => [exibirPercentual(valor), 'Risco proporcional']} />
-              <Bar dataKey="riscoPercentual" name="Risco proporcional" fill="#276895"
+              <Bar dataKey="riscoPercentual" name="Risco proporcional" fill="url(#risk-bar)"
                 radius={[0, 6, 6, 0]} maxBarSize={28}>
                 <LabelList dataKey="riscoPercentual" position="right"
                   formatter={exibirPercentual} fontSize={11} fill="#0B1733" />
@@ -92,6 +92,7 @@ export default function Comparativo() {
         </div>
       </Card>
 
+      </div>
       <Card title="Tabela comparativa das unidades" className="comparativo-card">
         <Paragraph type="secondary">
           O gráfico facilita identificar a ordem de atenção. A tabela permite
