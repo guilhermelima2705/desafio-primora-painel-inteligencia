@@ -277,3 +277,9 @@ body {
 @media (max-width: 1199.98px) { .overview-charts { grid-template-columns: minmax(0,1fr); } .history-grid { grid-template-columns: 240px minmax(0,1fr); } }
 @media (max-width: 767.98px) { .app-content.ant-layout-content { padding: 20px; } .dashboard-heading { align-items: start; flex-direction: column; gap: 14px; } .dataset-stamp { padding: 8px 12px; } .dataset-stamp strong { display: inline; margin-left: 10px; } .history-grid { grid-template-columns: minmax(0,1fr); } .client-sidebar { position: static; } .client-profile h3 { margin-bottom: 16px; } .client-profile dl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; } .client-profile dt { grid-row: 1; } .client-profile dd { grid-row: 2; margin: 0 0 10px; } .profile-icon { float: right; margin: 0 0 16px 16px; } }
 @media (max-width: 575.98px) { .app-content.ant-layout-content { padding: 20px 16px; } .analytics-panel .ant-card-body, .ranking-summary .ant-card-body { padding-inline: 16px; } .analytics-panel .ant-card-head, .ranking-summary .ant-card-head { padding-inline: 16px; } .chart-frame { height: 280px; } .overview-charts, .history-grid, .client-journey { gap: 16px; } .unit-card .ant-card-body { padding: 20px; } .unit-primary { font-size: 38px; } .timeline-event { padding-left: 4px; } }
+
+/* Controles da Sprint 4: largura adaptável sem alterar o layout das páginas. */
+.selection-control { display: grid; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 24px; }
+.selection-control label { color: #294F5D; font-size: 12px; font-weight: 600; }
+.selection-control .ant-select { width: 100%; min-width: 0; }
+.client-id { font-size: 11px; overflow-wrap: anywhere; color: #C5E4EB; }
