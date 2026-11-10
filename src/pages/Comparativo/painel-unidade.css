@@ -1,0 +1,205 @@
+/* Painel "por unidade": só aparece no tablet e no celular, no lugar da tabela. */
+.comparativo-mobile-units {
+  display: none;
+}
+
+.comparativo-mobile-selector {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.comparativo-mobile-selector label {
+  color: #294F5D;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.comparativo-mobile-selector .ant-select {
+  width: 100%;
+}
+
+.comparativo-mobile-detail-heading {
+  margin-bottom: 12px;
+}
+
+.comparativo-mobile-position {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #E6F3F5;
+  color: #126078;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.comparativo-mobile-unit {
+  min-width: 0;
+}
+
+.comparativo-mobile-unit strong {
+  color: #0B1733;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.comparativo-mobile-unit span {
+  color: #627E89;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.comparativo-mobile-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.comparativo-mobile-metric {
+  min-width: 0;
+  padding: 10px;
+  border-radius: 9px;
+}
+
+.comparativo-mobile-metric .ant-statistic,
+.comparativo-mobile-metric .ant-statistic .ant-statistic-title,
+.comparativo-mobile-metric .ant-statistic .ant-statistic-content {
+  color: inherit;
+}
+
+.comparativo-mobile-metric .ant-statistic .ant-statistic-title {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.comparativo-mobile-metric .ant-statistic .ant-statistic-content {
+  font-size: 18px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.comparativo-mobile-metric--risk {
+  border: 1px solid #F3D5A8;
+  color: #7A3B0B;
+  background: #FFF4E3;
+}
+
+.comparativo-mobile-metric .comparativo-mobile-icon {
+  display: none;
+}
+
+.comparativo-mobile-metric--success {
+  border: 1px solid #BFE0CD;
+  color: #1E5E3F;
+  background: #EAF6EF;
+}
+
+.comparativo-mobile-data {
+  margin-top: 8px;
+}
+
+.comparativo-mobile-data-row {
+  min-height: 36px;
+  padding: 6px 0;
+  border-bottom: 1px solid #E7EEF2;
+  color: #526F7D;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.comparativo-mobile-data-row:last-child {
+  border-bottom: 0;
+}
+
+.comparativo-mobile-data-row strong {
+  flex-shrink: 0;
+  color: #0B1733;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1279.98px) {
+  .comparativo-mobile-units {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  /* Card da unidade*/
+  .comparativo-page .comparativo-mobile-units .ant-card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px 20px;
+    align-items: start;
+    padding-bottom: 22px;
+  }
+
+  .comparativo-mobile-selector {
+    grid-area: 1 / 1;
+    margin: 0;
+  }
+
+  .comparativo-mobile-details {
+    display: contents;
+  }
+
+  .comparativo-mobile-detail-heading {
+    grid-area: 2 / 1;
+    margin: 0;
+  }
+
+  .comparativo-mobile-metrics {
+    grid-area: 1 / 2 / 3;
+    align-self: stretch;
+  }
+
+  .comparativo-mobile-metric {
+    justify-content: center;
+    padding: 14px 16px;
+  }
+
+  .comparativo-mobile-metric .ant-statistic .ant-statistic-content {
+    font-size: 28px;
+  }
+
+  .comparativo-mobile-metric .ant-statistic .ant-statistic-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  .comparativo-mobile-metric .comparativo-mobile-icon {
+    display: inline-flex;
+  }
+
+  .comparativo-mobile-data {
+    display: grid;
+    grid-area: 3 / 1 / 4 / 3;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 28px;
+    margin-top: 0;
+  }
+
+  .comparativo-mobile-data-row {
+    min-height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .comparativo-mobile-selector {
+    margin-bottom: 10px;
+  }
+
+  .comparativo-mobile-metric {
+    padding: 8px 10px;
+  }
+
+  .comparativo-mobile-data-row {
+    min-height: 32px;
+    padding: 4px 0;
+  }
+}
