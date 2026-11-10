@@ -36,21 +36,32 @@ body {
   box-shadow: 4px 0 20px rgba(11, 23, 51, 0.06);
 }
 
+/* Logo: bloco branco com a base inclinada (como as linhas da logo) e borda turquesa na diagonal. */
 .app-brand {
-  height: 136px;
-  padding: 16px;
+  position: relative;
+  height: 132px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #19C7E8; /* turquesa do item selecionado do menu */
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+}
+
+.app-brand::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 4px 0;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
 }
 
 .app-brand-logo {
+  position: relative;
   width: 100%;
+  max-width: 206px;
   min-width: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #fff;
+  margin-top: -4px;
 }
 
 .app-brand-logo img {
@@ -59,20 +70,30 @@ body {
   height: auto;
 }
 
-.app-brand-compact .app-brand-logo {
-  position: relative;
-  flex: 0 0 48px;
-  height: 64px;
+/* Menu recolhido: mostra só o símbolo da logo, sem alterar o arquivo. */
+.app-brand-compact {
+  height: 100px;
+  padding: 0;
 }
 
-/* Enquadra apenas o símbolo da imagem original, sem alterar o arquivo. */
+.app-brand-compact .app-brand-logo {
+  position: relative;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 56px;
+  overflow: hidden;
+}
+
 .app-brand-compact .app-brand-logo img {
   position: absolute;
-  width: 180px;
+  width: 140px;
   max-width: none;
-  top: -10px;
-  left: -11px;
+  height: auto;
+  top: 2px;
+  left: -1px;
+  clip-path: inset(0 70% 0 0);
 }
+
 .app-navigation {
   padding: 16px 8px;
 }
@@ -105,6 +126,9 @@ body {
   line-height: 1.5;
   background: #fff;
   border-bottom: 1px solid #E8ECF2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .app-menu-button.ant-btn {
@@ -196,16 +220,15 @@ body {
 .app-content.ant-layout-content { padding: 30px; max-width: 1680px; margin-inline: auto; }
 .app-sidebar.ant-layout-sider { background: linear-gradient(175deg, #103D4B, #0D2C3B); box-shadow: none; }
 .app-navigation .ant-menu { background: transparent; }
-.app-brand { height: 108px; padding: 22px 32px; border-bottom-color: #FFFFFF12; }
-.app-brand-logo { border-radius: 6px; background: #F4FAFB; padding: 3px; }
-.app-brand-logo img { mix-blend-mode: multiply; }
-.app-brand-compact { padding: 16px; }
-.app-brand-compact .app-brand-logo { padding: 0; }
 .navigation-caption { padding: 26px 28px 0; color: #9ABFC9; letter-spacing: 1.5px; font-size: 10px; font-weight: 700; }
 .app-navigation { padding-top: 12px; }
 .app-navigation .ant-menu-item { margin-bottom: 10px; }
 .app-navigation .ant-menu-item-selected { box-shadow: inset 3px 0 0 #49DAE4, 0 5px 14px #00000012; }
-.app-header.ant-layout-header { background: #FFFFFFDD; border-color: #E1EBEF; }
+.app-header.ant-layout-header {
+  background: #FFFFFF;
+  border-color: #E1EBEF;
+  box-shadow: 0 2px 8px rgba(16, 61, 75, 0.06);
+}
 .app-header-caption.ant-typography { color: #173F50; font-weight: 600; letter-spacing: 0.3px; }
 .app-academic-badge.ant-tag { background: #EAF5F5; border: 0; color: #286575; border-radius: 20px; }
 .dashboard-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 26px; }
@@ -283,3 +306,9 @@ body {
 .selection-control label { color: #294F5D; font-size: 12px; font-weight: 600; }
 .selection-control .ant-select { width: 100%; min-width: 0; }
 .client-id { font-size: 11px; overflow-wrap: anywhere; color: #C5E4EB; }
+/* Remove o contorno preto que aparece ao tocar nos gráficos no celular */
+.recharts-wrapper,
+.recharts-wrapper *:focus,
+.recharts-surface:focus {
+  outline: none;
+}
