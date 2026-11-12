@@ -65,3 +65,64 @@ Por padrão, utiliza Microsoft Edge e `http://127.0.0.1:5173`. É possível defi
 ## Organização das branches
 
 `main` contém a versão estável publicada; `develop` integra o desenvolvimento. A Sprint 4 é preparada em `feature/sprint-4-interatividade`, sem publicação automática. Antes de integrar uma entrega, validar lint, build, testes e navegação responsiva.
+
+## Sprint 5 — Modelos e DAOs
+
+Os DAOs são um contrato acadêmico e consultam o dataset JSON local. As telas continuam usando seus pontos de acesso atuais até a Sprint 6.
+
+```text
+src/models/
+  Unidade.js
+  Cliente.js
+  Evento.js
+  RegistroSaude.js
+  validacao.js
+src/dao/
+  UnidadeDAO.js
+  ClienteDAO.js
+tests/sprint5/
+  modelos.test.js
+  daos.test.js
+```
+
+- `Unidade` preserva os campos de `tenants`, incluindo as séries posicionais, o funil e a distribuição de saúde.
+- `Cliente` preserva o vínculo por `tenantId`. `getEventos()` e `getHistoricoSaude()` retornam novas listas de instâncias encapsuladas, na ordem do JSON.
+- `Evento` mantém o horário original em texto, sem fuso. O getter `valor` retorna `undefined` quando ausente e preserva zero.
+- `RegistroSaude` mantém a data original e valida o score entre 0 e 100.
+
+Os modelos usam atributos privados, getters e cópias dos dados mutáveis. Os métodos dos DAOs são assíncronos:
+
+| DAO | Métodos |
+| --- | --- |
+| `UnidadeDAO` | `listar()`, `buscarPorId(id)` |
+| `ClienteDAO` | `listar()`, `buscarPorId(id)`, `listarPorUnidade(tenantId)` |
+
+Buscas sem correspondência retornam `null`, listagens vazias retornam `[]` e argumentos que não sejam strings não vazias são rejeitados com `TypeError`. Os IDs são comparados com o texto original.
+
+Exemplo para um módulo ES na raiz do projeto:
+
+```js
+import { Unidade } from './src/models/Unidade.js';
+import { Cliente } from './src/models/Cliente.js';
+import { UnidadeDAO } from './src/dao/UnidadeDAO.js';
+import { ClienteDAO } from './src/dao/ClienteDAO.js';
+
+const unidades = new UnidadeDAO();
+const clientes = new ClienteDAO();
+console.log((await unidades.listar()).length); // 4
+console.log((await unidades.buscarPorId('vetor-sul')) instanceof Unidade);
+console.log((await clientes.listar()).length); // 3
+console.log((await clientes.buscarPorId('cli-timeline-001')) instanceof Cliente);
+console.log((await clientes.listarPorUnidade('vetor-sul')).map(cliente => cliente.nome));
+```
+
+Com o Node 26 disponível no ambiente do projeto, execute os testes na raiz:
+
+```powershell
+node --test tests/sprint5/modelos.test.js tests/sprint5/daos.test.js
+node --test src/pages/Comparativo/indicadores.test.js
+npm.cmd run lint
+npm.cmd run build
+```
+
+O contrato dos DAOs foi definido para a atividade acadêmica. Ele não constitui uma API oficial da Primora.
