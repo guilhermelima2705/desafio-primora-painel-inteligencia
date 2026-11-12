@@ -5,6 +5,7 @@ import ClienteTimeline from '../../components/ClienteTimeline';
 import DashboardHeading from '../../components/DashboardHeading';
 import { ClientHealthChart } from '../../components/AnalyticsCharts';
 import dataset from '../../data/dataset_painel_multitenant.json';
+import './historico.css';
 
 export default function HistoricoClientes() {
   const [clienteId, setClienteId] = useState(dataset.clientes[0].id);
