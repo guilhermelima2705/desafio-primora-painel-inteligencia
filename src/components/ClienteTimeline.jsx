@@ -1,4 +1,5 @@
-import { Tag, Timeline, Typography } from 'antd';
+import { useState } from 'react';
+import { Button, Tag, Timeline, Typography } from 'antd';
 
 const { Paragraph, Text } = Typography;
 
@@ -15,6 +16,9 @@ const tiposEvento = {
   cluster_mudanca: { rotulo: 'Mudança de cluster', cor: 'purple' },
 };
 
+// Quantidade de eventos exibidos no celular antes de "Ver todos" (deve coincidir com o seletor nth-child(n+6) em historico.css).
+const LIMITE_CELULAR = 5;
+
 const formatoData = new Intl.DateTimeFormat('pt-BR', {
   day: '2-digit',
   month: '2-digit',
@@ -24,13 +28,16 @@ const formatoData = new Intl.DateTimeFormat('pt-BR', {
 });
 
 export default function ClienteTimeline({ eventos = [] }) {
+  // Controla a exibição completa; o recorte para 5 eventos vale apenas no celular (via CSS).
+  const [expandida, setExpandida] = useState(false);
   const eventosOrdenados = [...eventos].sort((a, b) =>
     b.data.localeCompare(a.data),
   );
 
   return (
+    <>
     <Timeline
-      className="cliente-timeline"
+      className={`cliente-timeline${expandida ? '' : ' is-collapsed'}`}
       items={eventosOrdenados.map((evento) => {
         const tipo = tiposEvento[evento.tipo] ?? {
           rotulo: evento.tipo,
@@ -69,5 +76,11 @@ export default function ClienteTimeline({ eventos = [] }) {
         };
       })}
     />
+    {eventosOrdenados.length > LIMITE_CELULAR && (
+      <Button className="timeline-toggle" type="link" onClick={() => setExpandida((atual) => !atual)}>
+        {expandida ? 'Mostrar menos' : `Ver todos os ${eventosOrdenados.length} eventos`}
+      </Button>
+    )}
+    </>
   );
 }

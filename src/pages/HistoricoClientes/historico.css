@@ -1,0 +1,51 @@
+/* Histórico de Clientes: layout responsivo (apenas apresentação; não altera dados nem estado).
+   Breakpoints: celular < 768px | tablet 768px a 1199px | computador >= 1200px. */
+
+/* Cabeçalho: oculta o texto auxiliar (eyebrow) acima do título; o "Perfil do cliente" do cartão é mantido. */
+.historico-page .dashboard-heading .eyebrow { display: none; }
+
+/* Linha do tempo compacta: data e tipo na primeira linha; descrição e valor na segunda.
+   Substitui as margens inline do componente (por isso o !important). */
+.historico-page .cliente-timeline { margin-top: 12px; }
+.historico-page .timeline-event { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; margin: 0; padding: 0 0 6px 8px; border-bottom: 0; }
+.historico-page .timeline-event > div:first-child { flex: 0 0 100%; margin-bottom: 2px !important; }
+.historico-page .timeline-event > .ant-typography { flex: 0 1 auto; margin: 0 !important; }
+.historico-page .event-value { margin: 0; }
+
+/* Tabela "Consultar scores registrados": cabeçalho "Data / Score" mantido; título da coluna numérica alinhado
+   à direita, como os valores; linhas com menos espaçamento vertical para que todas as datas caibam sem rolagem
+   e largura máxima para data e score não ficarem distantes em telas largas. */
+.historico-page .client-health .chart-data table { max-width: 440px; }
+.historico-page .client-health .chart-data thead th:not(:first-child) { text-align: right; }
+.historico-page .client-health .chart-data td,
+.historico-page .client-health .chart-data th { padding-block: 4px; }
+
+/* Tablet e computador: cartão do perfil e gráfico de score lado a lado, com a mesma altura mínima;
+   linha do tempo abaixo, em largura total e dividida em duas colunas.
+   O alinhamento é 'start': ao abrir "Consultar scores registrados" apenas o cartão do gráfico cresce. */
+@media (min-width: 768px) {
+  .historico-page .history-grid { --altura-topo: 330px; grid-template-columns: 260px minmax(0, 1fr); align-items: start; }
+  .historico-page .client-sidebar, .historico-page .client-journey { display: contents; }
+  .historico-page .client-profile.ant-card { grid-column: 1; grid-row: 1; min-height: var(--altura-topo); }
+  .historico-page .client-health { grid-column: 2; grid-row: 1; min-height: var(--altura-topo); }
+  .historico-page .client-health .chart-frame { height: 200px; }
+  .historico-page .timeline-panel { grid-column: 1 / -1; grid-row: 2; }
+  .historico-page .source-note { grid-column: 1 / -1; grid-row: 3; margin: 0; }
+  .historico-page .cliente-timeline { display: block; column-count: 2; column-gap: 40px; }
+  .historico-page .cliente-timeline > .ant-timeline-item { break-inside: avoid; }
+
+  /* Cartão do perfil mais compacto (menos espaçamento vertical). */
+  .historico-page .profile-icon { float: right; width: 46px; height: 46px; font-size: 22px; margin: 0 0 8px 10px; }
+  .historico-page .client-profile h3 { margin: 4px 0 14px; font-size: 20px; }
+  .historico-page .client-profile dl { clear: both; padding-top: 14px; margin: 0; }
+  .historico-page .client-profile dd { margin: 3px 0 14px; }
+  .historico-page .client-id { margin: 0 0 10px; }
+}
+
+/* Celular: exibe os 5 eventos mais recentes e o botão "Ver todos os N eventos".
+   Em tablet e computador todos os eventos permanecem visíveis e o botão fica oculto. */
+.historico-page .timeline-toggle { display: none; }
+@media (max-width: 767.98px) {
+  .historico-page .cliente-timeline.is-collapsed > .ant-timeline-item:nth-child(n + 6) { display: none; }
+  .historico-page .timeline-toggle { display: inline-flex; margin-top: 4px; padding-inline: 0; font-weight: 600; }
+}
