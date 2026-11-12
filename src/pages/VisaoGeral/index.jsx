@@ -4,6 +4,7 @@ import UnidadeCard from '../../components/UnidadeCard';
 import DashboardHeading from '../../components/DashboardHeading';
 import { EngagementChart, HealthChart } from '../../components/AnalyticsCharts';
 import dataset from '../../data/dataset_painel_multitenant.json';
+import './visao-geral.css';
 
 export default function VisaoGeral() {
   const [unidadeId, setUnidadeId] = useState(dataset.tenants[0].id);
