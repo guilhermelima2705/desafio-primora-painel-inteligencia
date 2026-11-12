@@ -1,0 +1,117 @@
+/* Visão Geral: layout responsivo (apenas apresentação; não altera dados nem estado).
+   Breakpoints: celular < 576px | tablet 768px a 1199px | computador >= 1200px. */
+
+/* Celular: cabeçalho compacto e cartão da unidade em grade (ícone, nome e porte na mesma linha). */
+@media (max-width: 575.98px) {
+  .overview-page .dashboard-heading { gap: 8px; margin-bottom: 14px; }
+  .overview-page .eyebrow { margin-bottom: 4px; }
+  .overview-page .dashboard-heading h2.ant-typography { margin: 0 0 4px; font-size: 26px; }
+  .overview-page .dashboard-heading .ant-typography { font-size: 13.5px; line-height: 1.5; }
+  .overview-page .dataset-stamp { padding: 0; border: 0; background: transparent; font-size: 12.5px; }
+  .overview-page .selection-control { gap: 4px; margin-bottom: 14px; }
+  .overview-page .unit-grid { margin-bottom: 14px; }
+
+  /* Grade do cartão: três colunas na primeira linha, demais itens em largura total. */
+  .overview-page .unit-card .ant-card-body {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'icone nome porte' 'total total total' 'rotulo rotulo rotulo' 'indicadores indicadores indicadores';
+    align-items: center;
+    column-gap: 12px;
+    padding: 16px 18px;
+  }
+  .overview-page .unit-card-top { display: contents; }
+  .overview-page .unit-icon { grid-area: icone; }
+  .overview-page .unit-card .ant-tag { grid-area: porte; }
+  .overview-page .unit-card h3 { grid-area: nome; margin: 0; }
+  .overview-page .unit-primary { grid-area: total; margin-top: 10px; font-size: 40px; }
+  .overview-page .unit-label { grid-area: rotulo; margin: 0 0 14px; }
+  .overview-page .unit-secondary { grid-area: indicadores; padding-top: 12px; }
+}
+
+/* Tabelas "Consultar" em cartões estreitos (celular e tablet): fonte menor, células sem quebra
+   de linha e nome da unidade com quebra permitida, evitando rolagem horizontal. */
+@media (max-width: 575.98px), (min-width: 768px) and (max-width: 1199.98px) {
+  .overview-page .chart-data table { font-size: 10.5px; }
+  .overview-page .chart-data td, .overview-page .chart-data th { padding: 7px 3px; white-space: nowrap; }
+  .overview-page .chart-data tbody th { text-align: left; white-space: normal; }
+  .overview-page .chart-data thead th { text-align: right; vertical-align: bottom; }
+  .overview-page .chart-data thead th:first-child { text-align: left; }
+}
+
+/* Tabelas "Consultar": cabeçalhos numéricos alinhados à direita, como os valores; largura máxima na tabela de engajamento. */
+.overview-page .chart-data thead th:not(:first-child) { text-align: right; }
+.overview-page .dark-panel .chart-data table { max-width: 560px; }
+.overview-page .analytics-panel:not(.dark-panel) .chart-data td, .overview-page .analytics-panel:not(.dark-panel) .chart-data th { padding-inline: 4px; }
+@media (min-width: 1200px) and (max-width: 1599.98px) {
+  .overview-page .analytics-panel:not(.dark-panel) .chart-data table { font-size: 10.5px; }
+}
+@media (max-width: 575.98px), (min-width: 768px) and (max-width: 1199.98px) {
+  .overview-page .analytics-panel:not(.dark-panel) .chart-data td, .overview-page .analytics-panel:not(.dark-panel) .chart-data th { padding-inline: 2px; }
+}
+
+/* Cartão da unidade em largura total, organizado em blocos: unidade, clientes, eventos e sucessos.
+   Em 576px a 767px os blocos ficam em 2 colunas. */
+@media (min-width: 576px) {
+  .overview-page .unit-grid > .ant-col { flex: 0 0 100%; max-width: 100%; }
+  .overview-page .unit-card .ant-card-body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: 'topo total' 'nome rotulo' 'eventos sucessos';
+    row-gap: 4px;
+    padding: 24px 28px;
+  }
+  .overview-page .unit-card-top { grid-area: topo; justify-content: flex-start; gap: 12px; }
+  .overview-page .unit-card h3 { grid-area: nome; margin: 8px 0 0; font-size: 16px; }
+  .overview-page .unit-primary { grid-area: total; font-size: 40px; }
+  .overview-page .unit-label { grid-area: rotulo; margin: 0; align-self: end; }
+  .overview-page .unit-secondary { display: contents; }
+  .overview-page .unit-secondary > div:first-child { grid-area: eventos; }
+  .overview-page .unit-secondary > div:last-child { grid-area: sucessos; }
+  .overview-page .unit-secondary > div { margin-top: 16px; padding-top: 16px; border-top: 1px solid #FFFFFF22; }
+}
+@media (min-width: 768px) {
+  .overview-page .unit-card .ant-card-body {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas: 'topo total eventos sucessos' 'nome rotulo eventos sucessos';
+    column-gap: 0;
+    padding: 22px 0;
+  }
+  .overview-page .unit-card .ant-card-body > * { padding-inline: clamp(14px, 2vw, 32px); }
+  .overview-page .unit-secondary > div { margin-top: 0; padding-top: 0; border-top: 0; border-left: 1px solid #FFFFFF22; align-self: stretch; align-content: center; padding-left: clamp(14px, 2vw, 32px); }
+  .overview-page .unit-secondary strong { font-size: clamp(20px, 2.2vw, 26px); }
+  .overview-page .unit-secondary span:last-child { font-size: 12px; }
+  .overview-page .unit-primary { font-size: clamp(30px, 3vw, 36px); }
+}
+
+/* Tablet: gráficos de engajamento e saúde lado a lado, em colunas de mesma largura e altura independente. */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .overview-page .overview-charts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .overview-page .chart-data tbody th { min-width: 84px; }
+  .overview-page .chart-frame { height: 260px; }
+}
+
+/* Oculta o texto auxiliar (eyebrow) acima do título desta página. */
+.overview-page .eyebrow { display: none; }
+
+/* Legendas dos gráficos: ocupam a largura do cartão para ficarem centralizadas
+   (compensa o deslocamento aplicado pela biblioteca de gráficos). */
+.overview-page .recharts-legend-wrapper { left: 0 !important; width: 100% !important; }
+.overview-page .recharts-legend-item { margin-right: 0 !important; }
+
+/* Legenda do gráfico de saúde: 4 categorias em uma única linha, alinhadas à esquerda dentro de cada item. */
+.overview-page .analytics-panel:not(.dark-panel) .recharts-default-legend {
+  display: grid !important;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: center;
+  column-gap: 14px;
+  row-gap: 6px;
+  text-align: left !important;
+}
+.overview-page .analytics-panel:not(.dark-panel) .recharts-legend-item { text-align: left !important; white-space: nowrap; }
+
+/* Celular: oculta a descrição abaixo do título e reduz a altura do gráfico de saúde. */
+@media (max-width: 575.98px) {
+  .overview-page .dashboard-heading div.ant-typography { display: none; }
+  .overview-page .analytics-panel:not(.dark-panel) .chart-frame { height: 220px; }
+}

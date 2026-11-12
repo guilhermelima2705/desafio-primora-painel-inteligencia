@@ -1,50 +1,328 @@
-.comparativo-page,
-.comparativo-chart {
-  min-width: 0;
+.comparativo-page {
+  display: grid;
+  gap: 18px;
   width: 100%;
+  min-width: 0;
 }
 
-.comparativo-card {
-  margin-top: 24px;
+.comparativo-page > .dashboard-heading {
+  margin-bottom: 8px;
 }
 
-.comparativo-card .ant-card-head-title {
-  padding-block: 12px;
-  white-space: normal;
+/* título e a data */
+.comparativo-page .dashboard-heading .eyebrow,
+.comparativo-page .dashboard-heading div.ant-typography {
+  display: none;
+}
+
+/* O visual dos cards (borda, cabeçalho, título) vem do global.css. */
+.comparativo-page .comparativo-card .ant-card-body,
+.comparativo-page .ranking-summary .ant-card-body {
+  padding-top: 0;
+}
+
+.comparativo-chart-description.ant-typography {
+  margin: 0 0 12px;
+  color: #627E89;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* Gráfico + ranking lateral */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.9fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.comparison-grid > .comparativo-chart-card {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.comparison-grid > .comparativo-chart-card > .ant-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .comparativo-chart {
-  height: 320px;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 270px;
 }
 
-@media (max-width: 575.98px) {
-  .comparativo-card .ant-card-body {
-    padding: 16px;
+.comparison-context {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2;
+  grid-row: 1;
+  gap: 14px;
+  min-width: 0;
+}
+
+.comparativo-page .ranking-summary {
+  width: 100%;
+  margin: 0;
+}
+
+.ranking-item {
+  padding: 11px 0;
+  border-top: 1px solid #EAF0F3;
+}
+
+.ranking-position {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  width: 32px;
+  height: 32px;
+  background: #E6F3F5;
+  color: #126078;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ranking-item > div {
+  min-width: 0;
+}
+
+.ranking-item strong {
+  color: #0B1733;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.ranking-item div > span {
+  color: #627E89;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.ranking-item b {
+  color: #254F60;
+  font-weight: 700;
+}
+
+.comparison-context .ant-alert {
+  padding: 12px 14px;
+  border: 1px solid #CFE5EB;
+  border-radius: 13px;
+  background: #EAF5F7;
+}
+
+.comparison-context .ant-alert-description {
+  color: #526F7D;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Tabela (desktop) */
+.comparativo-table,
+.comparativo-table .ant-table,
+.comparativo-table .ant-table-container {
+  width: 100%;
+  min-width: 0;
+}
+
+.comparativo-table .ant-table {
+  table-layout: fixed;
+}
+
+.comparativo-table .ant-table-thead > tr > th {
+  height: 48px;
+  padding: 7px 5px;
+  background: #EAF3F6;
+  color: #295365;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+
+.comparativo-th span {
+  display: block;
+  white-space: nowrap;
+}
+
+.comparativo-table .ant-table-tbody > tr > td {
+  padding: 11px 6px;
+  color: #203C57;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.comparativo-table .ant-table-tbody > tr:nth-child(even) > td {
+  background: #F6F9FB;
+}
+
+.comparativo-table .ant-table-tbody > tr:hover > td {
+  background: #EAF3F7;
+}
+
+.comparativo-table .ant-table-tbody > tr > td:nth-child(2) {
+  font-weight: 650;
+}
+
+.comparativo-table .ant-table-content:focus-visible {
+  outline: 3px solid #276895;
+  outline-offset: 2px;
+}
+
+.comparativo-table .ant-tag {
+  margin: 0;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.comparativo-risk,
+.comparativo-success {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.comparativo-risk {
+  color: #85420E;
+  background: #FFF0DB;
+}
+
+.comparativo-success {
+  color: #256846;
+  background: #E8F4EC;
+}
+
+/* Explicação dos cálculos */
+.comparativo-calculations .ant-typography {
+  margin-bottom: 8px;
+  color: #526F7D;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.comparativo-calculations .ant-typography:last-child {
+  margin-bottom: 0;
+}
+
+/* Tablet e celular */
+@media (max-width: 1279.98px) {
+  .comparison-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .comparison-context {
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .comparativo-desktop-table {
+    display: none;
   }
 }
 
-.comparativo-table .ant-table-tbody > tr:nth-child(even) > td { background: #F4F7FB; }
-.comparativo-table .ant-table-tbody > tr:hover > td { background: #E9F3FA; }
-.comparativo-table .ant-table-cell { font-variant-numeric: tabular-nums; }
-.comparativo-table .ant-table-tbody > tr > td:nth-child(2) { font-weight: 600; color: #203C57; }
-.comparativo-risk, .comparativo-success { display: inline-block; padding: 3px 8px; border-radius: 6px; font-weight: 650; white-space: nowrap; }
-.comparativo-risk { color: #85420E; background: #FFF0DB; }
-.comparativo-success { color: #256846; background: #E8F4EC; }
-.comparativo-chart { padding-top: 8px; }
-.comparativo-table .ant-table-content:focus-visible { outline: 3px solid #276895; outline-offset: 2px; }
+/* Tablet (768px a 1279px): lista em duas colunas e card da unidade em duas colunas */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .comparison-context {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.comparison-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); gap: 24px; align-items: stretch; margin-top: 24px; }
-.comparison-grid > .comparativo-card { grid-column: 1; grid-row: 1; margin-top: 0; }
-.comparison-context { grid-column: 2; grid-row: 1; display: grid; gap: 16px; align-content: start; min-width: 0; }
-.ranking-summary .ant-card-body { padding-top: 0; }
-.ranking-item { display: flex; gap: 12px; align-items: center; padding: 15px 0; border-top: 1px solid #E6EFF2; }
-.ranking-position { display: grid; place-items: center; width: 30px; height: 30px; flex-shrink: 0; background: #E8F4F6; color: #167487; border-radius: 9px; font-size: 12px; font-weight: 700; }
-.ranking-item strong { display: block; color: #254F60; font-size: 12px; margin-bottom: 4px; }
-.ranking-item div > span { font-size: 10px; color: #627E89; }
-.ranking-item b { color: #254F60; font-weight: 600; }
-.comparison-context .ant-alert { border-radius: 14px; background: #E4F3F6; border: 1px solid #CFE5EB; font-size: 11px; }
-.comparison-grid > .comparativo-card .ant-card-body { padding-top: 0; }
-.comparativo-table .ant-table-thead > tr > th { font-size: 11px; line-height: 1.6; background: #EAF3F6; color: #295365; }
-.comparativo-table .ant-table-tbody > tr > td { font-size: 12px; padding-block: 20px; }
-@media (max-width: 1199.98px) { .comparison-grid { grid-template-columns: minmax(0,1fr); } .comparison-context { grid-column: 1; grid-row: 2; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: start; } }
-@media (max-width: 767.98px) { .comparison-context { grid-template-columns: minmax(0,1fr); } .comparison-grid { gap: 16px; } }
+  .comparison-context .ranking-summary .ant-card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 28px;
+  }
+
+  .comparison-context .ranking-summary .panel-description {
+    grid-column: 1 / -1;
+  }
+
+  /* Cabeçalho dos cards  */
+  .comparativo-page .comparativo-card .ant-card-head,
+  .comparativo-page .ranking-summary .ant-card-head {
+    min-height: 54px;
+  }
+
+  .comparativo-page .comparativo-card .ant-card-head-title,
+  .comparativo-page .ranking-summary .ant-card-head-title {
+    padding-block: 14px;
+  }
+}
+
+/* Celular */
+@media (max-width: 767.98px) {
+  .comparativo-page {
+    gap: 12px;
+  }
+
+  .comparativo-page > .dashboard-heading {
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .comparison-grid,
+  .comparison-context {
+    gap: 12px;
+  }
+
+  .comparison-context {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .comparativo-chart {
+    min-height: 210px;
+  }
+
+  .comparativo-chart-description.ant-typography {
+    display: none;
+  }
+
+  /* Cards: cabeçalho e corpo */
+  .comparativo-page .comparativo-card .ant-card-head {
+    min-height: 48px;
+    padding-inline: 16px;
+  }
+
+  .comparativo-page .comparativo-card .ant-card-head-title {
+    padding-block: 12px;
+  }
+
+  .comparativo-page .comparativo-card .ant-card-body {
+    padding: 0 16px 16px;
+  }
+
+  /* Indicadores por unidade */
+  .comparativo-page .ranking-summary .ant-card-head {
+    min-height: 0;
+  }
+
+  .comparativo-page .ranking-summary .ant-card-head-title {
+    padding-block: 12px 2px;
+  }
+
+  .comparativo-page .ranking-summary .panel-description {
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .comparativo-calculations .ant-typography {
+    margin-bottom: 6px;
+    font-size: 12.5px;
+    text-wrap: pretty;
+  }
+}

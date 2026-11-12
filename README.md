@@ -1,158 +1,128 @@
 # Primora — Painel de Inteligência Multi-tenant
 
-Protótipo de um painel de inteligência para acompanhar indicadores comerciais e a saúde da carteira de clientes de unidades regionais. Desenvolvido em React, Vite e Ant Design, com interface responsiva e navegação entre três páginas.
-
-## Contexto acadêmico
-
-Este projeto integra o Projeto Integrador da Primora. O desafio propõe uma interface para visualizar indicadores por unidade, comparar desempenhos de forma proporcional ao porte das carteiras e consultar a jornada dos clientes.
-
-A Sprint 1 estabelece a estrutura visual, as páginas e a navegação. O termo **multi-tenant** representa a proposta do painel; o isolamento de dados entre unidades ainda não está implementado.
+Projeto Integrador da Primora, desenvolvido com React, Vite e Ant Design. A Sprint 4 adiciona seleção de unidade e cliente com estado React, preservando o redesign e o Comparativo com Recharts.
 
 ## Tecnologias
 
-Versões declaradas no `package.json` (os intervalos com `^` permitem atualizações compatíveis):
+React e React DOM 19, React Router 8, Vite 8, Ant Design 6, Ant Design Icons 6 e Recharts 3. Código em JavaScript/JSX e CSS, com ESLint 10. As versões exatas instaladas são registradas no `package-lock.json`.
 
-| Tecnologia | Versão declarada | Uso |
-| --- | --- | --- |
-| React e React DOM | `^19.3.1` | Componentes e renderização da interface |
-| Vite | `^8.3.5` | Desenvolvimento local e build |
-| Ant Design | `^6.6.8` | Layout, navegação e componentes visuais |
-| Ant Design Icons | `^6.3.4` | Ícones da interface |
-| React Router | `^8.5.1` | Rotas e navegação |
-| ESLint | `^10.13.0` | Análise estática do código |
-| Plugin React para Vite | `^6.1.2` | Integração do React com o Vite |
+## Executar no Windows
 
-O código da aplicação utiliza JavaScript com JSX e CSS. O `package-lock.json` registra as versões resolvidas das dependências.
-
-## Implementado na Sprint 1
-
-- Layout compartilhado com cabeçalho, navegação e rodapé.
-- Tema com cores inspiradas na identidade visual da Primora.
-- Três páginas acessíveis pelo menu, com destaque da rota ativa.
-- Menu lateral de 260 px em desktop (a partir de 992 px).
-- Drawer em telas menores, aberto pelo botão do cabeçalho e sobreposto ao conteúdo, sem comprimir a página.
-- Fechamento do Drawer por seleção de rota, botão de fechar, máscara ou tecla Esc.
-- Organização responsiva dos cartões e adaptação do cabeçalho para telas menores.
-- Redirecionamento de rotas desconhecidas para a Visão Geral.
-
-## Páginas
-
-| Página | Rota | Conteúdo atual |
-| --- | --- | --- |
-| Visão Geral | `/` | Cartões com títulos e textos indicativos para Unidades, Engajamento, Funil Comercial e Saúde da Carteira. |
-| Comparativo entre Unidades | `/comparativo` | Aviso sobre comparação proporcional e espaços reservados para ranking, gráfico e tabela comparativa. |
-| Histórico de Clientes | `/historico-clientes` | Seleção de cliente desabilitada, cartão de informações e estado vazio para a linha do tempo de eventos. |
-
-Os espaços reservados apresentam a estrutura pretendida. Não há cálculos de indicadores, ranking preenchido, gráfico renderizado ou consulta de histórico nesta sprint.
-
-## Estrutura principal
-
-```text
-primora-painel-inteligencia/
-├── public/                      # Arquivos estáticos
-├── src/
-│   ├── assets/                  # Recursos visuais
-│   ├── components/
-│   │   └── layout/
-│   │       ├── AppLayout.jsx    # Layout compartilhado e controle do menu
-│   │       └── Sidebar.jsx      # Navegação em Sider ou Drawer
-│   ├── pages/
-│   │   ├── VisaoGeral/
-│   │   │   └── index.jsx
-│   │   ├── Comparativo/
-│   │   │   └── index.jsx
-│   │   └── HistoricoClientes/
-│   │       └── index.jsx
-│   ├── routes/
-│   │   └── AppRoutes.jsx        # Definição das rotas
-│   ├── styles/
-│   │   └── global.css           # Estilos globais e responsividade
-│   ├── App.jsx                  # Componente principal
-│   └── main.jsx                 # Inicialização e configuração do tema
-├── eslint.config.js
-├── index.html
-├── package.json
-├── package-lock.json
-└── vite.config.js
-```
-
-## Pré-requisitos
-
-- Node.js compatível com o Vite instalado: `^20.19.0` ou `>=22.12.0`.
-- npm disponível no terminal.
-- Git para clonar o repositório e trabalhar com branches.
-
-## Instalação e execução
-
-Para obter uma nova cópia do projeto:
+Pré-requisitos: Git, Node.js compatível com Vite (`^20.19.0` ou `>=22.12.0`) e npm. O ambiente restaurado foi validado com Node.js 26.13.0 e npm 11.20.0.
 
 ```powershell
 git clone https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia.git
 cd desafio-primora-painel-inteligencia
 git switch develop
-```
-
-Se o projeto já estiver no caminho local utilizado durante o desenvolvimento:
-
-```powershell
-Set-Location 'C:\Users\Usuario\Projetos\primora-painel-inteligencia'
-git switch develop
-```
-
-Na raiz do projeto, instale as dependências e inicie o servidor:
-
-```powershell
 npm.cmd ci
 npm.cmd run dev
 ```
 
-Abra o endereço informado pelo Vite no terminal, normalmente `http://localhost:5173`. A porta pode mudar se já estiver em uso. Para encerrar o servidor, pressione `Ctrl+C`.
+Para uma cópia já existente, abra um terminal na raiz do repositório e execute os dois últimos comandos. A implementação da Sprint 4 está em `feature/sprint-4-interatividade` enquanto aguarda revisão; para demonstrá-la, utilize essa branch local.
 
-Os exemplos utilizam `npm.cmd` para execução no Windows PowerShell. Em outros ambientes, utilize `npm`.
+Acesse o endereço informado pelo Vite, normalmente `http://localhost:5173`. Para encerrar, pressione `Ctrl+C`. No VS Code, abra a pasta do repositório ou execute `code .` nessa pasta.
 
-## Build e lint
+## Páginas e interações da Sprint 4
 
-Gerar a versão de produção na pasta `dist/`:
+| Página | Rota | Funcionamento |
+| --- | --- | --- |
+| Visão Geral | `/` | Select com as quatro unidades oficiais. A seleção atualiza o cartão de carteira, eventos de engajamento de sete dias e sucessos do funil de noventa dias, além dos gráficos de engajamento e saúde da carteira. |
+| Comparativo | `/comparativo` | Tabela, ranking e gráfico de risco proporcional das quatro unidades, com as fórmulas e a ordenação existentes preservadas. A tabela tem rolagem horizontal interna. |
+| Histórico de Clientes | `/historico-clientes` | Select com os três clientes oficiais. A seleção atualiza nome, identificação, unidade, quantidade de eventos, série de score de saúde e timeline em ordem da data mais recente para a mais antiga. |
 
-```powershell
-npm.cmd run build
-```
+Cada Select do Ant Design utiliza `useState` para guardar o ID e `onChange` para atualizar a escolha. A primeira unidade e o primeiro cliente do JSON são as seleções iniciais. Os registros são localizados por ID e transmitidos aos componentes por props. A troca ocorre sem recarregar a página. Ao sair e retornar à tela, a seleção volta ao valor inicial; não há persistência.
 
-Verificar o código com ESLint:
+Para demonstrar: percorra as quatro unidades e confira o cartão e os gráficos; depois percorra os três clientes e confira perfil, série de saúde e eventos. As tabelas acessíveis em “Consultar…” permitem conferir os valores dos gráficos. Confira também o menu no celular e a tabela do Comparativo.
+
+## Origem e limites dos dados
+
+As três telas importam `src/data/dataset_painel_multitenant.json`, com quatro unidades e três clientes fictícios, gerado em 01/09/2026. O arquivo oficial não é alterado pelas seleções. Não há eventos, valores ou métricas inventados. A timeline ordena uma cópia dos eventos.
+
+Os gráficos mantêm os períodos e os valores do dataset. As fórmulas do Comparativo estão documentadas em `src/pages/Comparativo/README.md`. O projeto é uma demonstração acadêmica, sem backend, API, banco de dados, autenticação, persistência ou isolamento multi-tenant implementado.
+
+## Validação
+
+Execute na raiz do repositório:
 
 ```powershell
 npm.cmd run lint
+npm.cmd run build
+node --test src/pages/Comparativo/indicadores.test.js
 ```
 
-Visualizar localmente o build gerado:
+O build gera `dist/`. Para visualizá-lo, execute `npm.cmd run preview` e abra o endereço indicado.
+
+O teste de navegador em `scripts/sprint4.browser.mjs` valida as quatro unidades e os três clientes, os valores exibidos, séries dos gráficos, ordem dos eventos, ausência de recarregamento, navegação e larguras de 320, 390, 768 e 1440 pixels. Ele requer o Vite já ativo e um Playwright disponível no ambiente, sem adicionar dependências ao projeto:
 
 ```powershell
-npm.cmd run preview
+# Informe o caminho de um módulo Playwright já disponível no seu ambiente.
+$env:PLAYWRIGHT_MODULE = 'C:\caminho\para\playwright\index.mjs'
+node scripts/sprint4.browser.mjs
 ```
 
-Execute o build antes do preview. O preview serve para conferir a versão gerada localmente.
+Por padrão, utiliza Microsoft Edge e `http://127.0.0.1:5173`. É possível definir `BROWSER_CHANNEL` e `BASE_URL` para outro navegador instalado e endereço.
 
 ## Organização das branches
 
-- `main`: referência das entregas consolidadas.
-- `develop`: integração do desenvolvimento da sprint e base para novas alterações.
-- `feature/*`: branches futuras para tarefas específicas, criadas a partir de `develop`, por exemplo `feature/documentacao-sprint-1`.
+`main` contém a versão estável publicada; `develop` integra o desenvolvimento. A Sprint 4 é preparada em `feature/sprint-4-interatividade`, sem publicação automática. Antes de integrar uma entrega, validar lint, build, testes e navegação responsiva.
 
-Esse é o fluxo de trabalho proposto; não pressupõe regras automáticas de proteção de branches no GitHub.
+## Sprint 5 — Modelos e DAOs
 
-## Contribuição via Pull Request
+Os DAOs são um contrato acadêmico e consultam o dataset JSON local. As telas continuam usando seus pontos de acesso atuais até a Sprint 6.
 
-1. Atualize sua branch `develop` e crie uma branch `feature/*` com nome relacionado à tarefa.
-2. Faça alterações com escopo definido, preservando a organização e o padrão visual do projeto.
-3. Execute build e lint. Para mudanças de interface, confira também a navegação e a responsividade.
-4. Revise o diff e registre apenas os arquivos necessários em um commit.
-5. Envie a branch e abra um Pull Request direcionado a `develop`, descrevendo o objetivo, as alterações e as verificações realizadas. Inclua capturas de tela quando forem úteis.
-6. Aguarde a revisão antes da integração. Entregas consolidadas podem seguir de `develop` para `main` por Pull Request.
+```text
+src/models/
+  Unidade.js
+  Cliente.js
+  Evento.js
+  RegistroSaude.js
+  validacao.js
+src/dao/
+  UnidadeDAO.js
+  ClienteDAO.js
+tests/sprint5/
+  modelos.test.js
+  daos.test.js
+```
 
-Repositório: [desafio-primora-painel-inteligencia](https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia).
+- `Unidade` preserva os campos de `tenants`, incluindo as séries posicionais, o funil e a distribuição de saúde.
+- `Cliente` preserva o vínculo por `tenantId`. `getEventos()` e `getHistoricoSaude()` retornam novas listas de instâncias encapsuladas, na ordem do JSON.
+- `Evento` mantém o horário original em texto, sem fuso. O getter `valor` retorna `undefined` quando ausente e preserva zero.
+- `RegistroSaude` mantém a data original e valida o score entre 0 e 100.
 
-## Situação atual
+Os modelos usam atributos privados, getters e cópias dos dados mutáveis. Os métodos dos DAOs são assíncronos:
 
-**Sprint 1: protótipo visual com navegação.** A aplicação ainda não possui integração com dados reais, API ou backend, autenticação, persistência ou isolamento multi-tenant. Filtros funcionais, cálculos, gráficos e histórico real não estão implementados.
+| DAO | Métodos |
+| --- | --- |
+| `UnidadeDAO` | `listar()`, `buscarPorId(id)` |
+| `ClienteDAO` | `listar()`, `buscarPorId(id)`, `listarPorUnidade(tenantId)` |
 
-As páginas demonstram a estrutura da solução e servem de base para a evolução nas próximas sprints.
+Buscas sem correspondência retornam `null`, listagens vazias retornam `[]` e argumentos que não sejam strings não vazias são rejeitados com `TypeError`. Os IDs são comparados com o texto original.
+
+Exemplo para um módulo ES na raiz do projeto:
+
+```js
+import { Unidade } from './src/models/Unidade.js';
+import { Cliente } from './src/models/Cliente.js';
+import { UnidadeDAO } from './src/dao/UnidadeDAO.js';
+import { ClienteDAO } from './src/dao/ClienteDAO.js';
+
+const unidades = new UnidadeDAO();
+const clientes = new ClienteDAO();
+console.log((await unidades.listar()).length); // 4
+console.log((await unidades.buscarPorId('vetor-sul')) instanceof Unidade);
+console.log((await clientes.listar()).length); // 3
+console.log((await clientes.buscarPorId('cli-timeline-001')) instanceof Cliente);
+console.log((await clientes.listarPorUnidade('vetor-sul')).map(cliente => cliente.nome));
+```
+
+Com o Node 26 disponível no ambiente do projeto, execute os testes na raiz:
+
+```powershell
+node --test tests/sprint5/modelos.test.js tests/sprint5/daos.test.js
+node --test src/pages/Comparativo/indicadores.test.js
+npm.cmd run lint
+npm.cmd run build
+```
+
+O contrato dos DAOs foi definido para a atividade acadêmica. Ele não constitui uma API oficial da Primora.
