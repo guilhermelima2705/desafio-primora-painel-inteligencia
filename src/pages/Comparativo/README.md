@@ -1,6 +1,6 @@
 # Comparativo entre unidades
 
-A página importa diretamente `src/data/dataset_painel_multitenant.json` e apresenta as quatro unidades fictícias, sem API ou persistência.
+A página consulta `GET /unidades` por meio de `UnidadeDAO` e apresenta as quatro unidades fictícias.
 
 ## Indicadores e denominadores
 

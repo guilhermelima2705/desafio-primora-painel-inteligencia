@@ -1,13 +1,23 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test, { beforeEach } from 'node:test';
 import dataset from '../../src/data/dataset_painel_multitenant.json' with { type: 'json' };
 import { UnidadeDAO } from '../../src/dao/UnidadeDAO.js';
 import { ClienteDAO } from '../../src/dao/ClienteDAO.js';
 import { Unidade } from '../../src/models/Unidade.js';
 import { Cliente } from '../../src/models/Cliente.js';
 
+const opcoes = { baseUrl: 'https://api.example' };
+
+beforeEach(t => {
+  t.mock.method(globalThis, 'fetch', async url => {
+    if (url === 'https://api.example/unidades') return Response.json(dataset.tenants);
+    if (url === 'https://api.example/clientes') return Response.json(dataset.clientes);
+    throw new Error('Rota inesperada');
+  });
+});
+
 test('UnidadeDAO lista quatro unidades e busca cada ID', async () => {
-  const dao = new UnidadeDAO();
+  const dao = new UnidadeDAO(opcoes);
   const consulta = dao.listar();
   assert.ok(consulta instanceof Promise);
   const unidades = await consulta;
@@ -23,7 +33,7 @@ test('UnidadeDAO lista quatro unidades e busca cada ID', async () => {
 });
 
 test('ClienteDAO lista três clientes, busca cada ID e filtra por unidade', async () => {
-  const dao = new ClienteDAO();
+  const dao = new ClienteDAO(opcoes);
   const consulta = dao.listar();
   assert.ok(consulta instanceof Promise);
   const clientes = await consulta;
@@ -45,18 +55,18 @@ test('ClienteDAO lista três clientes, busca cada ID e filtra por unidade', asyn
 
 test('Consultas rejeitam argumentos inválidos com TypeError', async () => {
   for (const id of [undefined, null, 123, {}, '', '  ']) {
-    await assert.rejects(new UnidadeDAO().buscarPorId(id), TypeError);
-    await assert.rejects(new ClienteDAO().buscarPorId(id), TypeError);
-    await assert.rejects(new ClienteDAO().listarPorUnidade(id), TypeError);
+    await assert.rejects(new UnidadeDAO(opcoes).buscarPorId(id), TypeError);
+    await assert.rejects(new ClienteDAO(opcoes).buscarPorId(id), TypeError);
+    await assert.rejects(new ClienteDAO(opcoes).listarPorUnidade(id), TypeError);
   }
 });
 
 test('Consultas independentes preservam o dataset e todos os valores de evento', async () => {
   const antes = structuredClone(dataset);
-  const unidades = await new UnidadeDAO().listar();
+  const unidades = await new UnidadeDAO(opcoes).listar();
   unidades[0].funnel90d.sucesso = -1;
   unidades.pop();
-  const clientes = await new ClienteDAO().listar();
+  const clientes = await new ClienteDAO(opcoes).listar();
   for (const cliente of clientes) {
     const original = antes.clientes.find(c => c.id === cliente.id);
     assert.deepEqual(cliente.getEventos().map(({ data, tipo, titulo, valor }) => ({ data, tipo, titulo, valor })),
@@ -64,5 +74,5 @@ test('Consultas independentes preservam o dataset e todos os valores de evento',
     cliente.getEventos().length = 0;
   }
   assert.deepEqual(dataset, antes);
-  assert.equal((await new UnidadeDAO().listar()).length, 4);
+  assert.equal((await new UnidadeDAO(opcoes).listar()).length, 4);
 });

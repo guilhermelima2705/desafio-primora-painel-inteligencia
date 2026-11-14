@@ -1,15 +1,25 @@
-import dataset from '../data/dataset_painel_multitenant.json' with { type: 'json' };
+import { buscarLista } from '../api/http.js';
 import { Unidade } from '../models/Unidade.js';
 import { texto } from '../models/validacao.js';
 
 export class UnidadeDAO {
+  #opcoes;
+
+  constructor(opcoes) {
+    this.#opcoes = opcoes;
+  }
+
+  async carregar() {
+    const { itens, geradoEm } = await buscarLista('/unidades', this.#opcoes);
+    return { itens: itens.map(dados => new Unidade(dados)), geradoEm };
+  }
+
   async listar() {
-    return dataset.tenants.map(dados => new Unidade(dados));
+    return (await this.carregar()).itens;
   }
 
   async buscarPorId(id) {
     texto(id, 'id');
-    const dados = dataset.tenants.find(item => item.id === id);
-    return dados ? new Unidade(dados) : null;
+    return (await this.listar()).find(item => item.id === id) ?? null;
   }
 }
