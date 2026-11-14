@@ -9,7 +9,11 @@ export function criarComparativo(tenants) {
       + unidade.healthDistribution.critico;
 
     return {
-      ...unidade,
+      id: unidade.id,
+      nome: unidade.nome,
+      porte: unidade.porte,
+      carteiraTotalClientes: unidade.carteiraTotalClientes,
+      funnel90d: unidade.funnel90d,
       clientesEmRisco,
       // Participação de clientes em risco ou críticos na carteira total.
       riscoPercentual: percentual(clientesEmRisco, unidade.carteiraTotalClientes),

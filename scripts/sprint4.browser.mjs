@@ -15,6 +15,10 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   let documentLoads = 0;
+  let datasetRequests = 0;
+  page.on('request', request => {
+    if (request.resourceType() === 'fetch' && /\/(unidades|clientes)$/.test(request.url())) datasetRequests++;
+  });
   page.on('request', request => { if (request.isNavigationRequest() && request.frame() === page.mainFrame()) documentLoads++; });
   async function select(label, name, count) {
     const control = page.getByRole('combobox', { name: label, exact: true });
@@ -27,10 +31,12 @@ try {
   }
   async function stableDocument(action) {
     const before = documentLoads;
+    const requestsBefore = datasetRequests;
     await page.evaluate(() => { window.__sprint4Document = 'preservado'; });
     await action();
     assert.equal(await page.evaluate(() => window.__sprint4Document), 'preservado');
     assert.equal(documentLoads, before, 'Uma seleção recarregou a página');
+    assert.equal(datasetRequests, requestsBefore, 'Uma seleção solicitou o dataset novamente');
   }
   async function dataRows(selector) {
     return page.locator(selector).evaluateAll(rows => rows.map(row => [...row.cells].map(cell => cell.textContent.trim())));

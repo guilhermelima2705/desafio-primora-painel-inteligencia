@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { Unidade } from '../../models/Unidade.js';
 import { criarComparativo, percentual } from './indicadores.js';
 
 const dataset = JSON.parse(readFileSync(
@@ -9,7 +10,7 @@ const dataset = JSON.parse(readFileSync(
 
 test('ranking oficial prioriza risco proporcional, sem privilegiar o porte', () => {
   const antes = JSON.stringify(dataset);
-  const resultado = criarComparativo(dataset.tenants);
+  const resultado = criarComparativo(dataset.tenants.map(dados => new Unidade(dados)));
   assert.deepEqual(resultado.map((unidade) => unidade.id), [
     'vetor-litoral', 'vetor-sul', 'vetor-centro-oeste', 'vetor-norte',
   ]);
