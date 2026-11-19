@@ -15,7 +15,7 @@ A Primora atende várias unidades (tenants) e precisa acompanhar, em um só luga
 ## Repositórios do projeto
 
 - **Front-end (este repositório):** https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia
-- **Back-end próprio do grupo (ASP.NET Core e PostgreSQL):** mantido em repositório separado, não disponível publicamente.
+- **Back-end próprio do grupo (ASP.NET Core e PostgreSQL):** https://github.com/guilhermelima2705/primora-backend.
 
 ## Visão geral
 
