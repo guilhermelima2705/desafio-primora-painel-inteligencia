@@ -1,0 +1,72 @@
+@startuml
+title Painel de Inteligencia Multi-tenant - Primora
+skinparam classAttributeIconSize 0
+
+class Unidade {
+  -id : string
+  -nome : string
+  -porte : string
+  -carteiraTotalClientes : number
+  -receitaCarteira90d : number
+  -engagementEvents7d : number
+  -activeUsers7d : number
+  -riscoAbsoluto : number
+  -engagementTrend30d : number[]
+  -funnel90d : gerada, vista, sucesso, falha
+  -funnelTrend30d : number[]
+  -healthDistribution : saudavel, atencao, risco, critico
+  -riscoDrivers : string[]
+  +constructor(dados)
+}
+
+class Cliente {
+  -id : string
+  -nome : string
+  -tenantId : string
+  -tenantNome : string
+  -eventos : Evento[]
+  -healthSeries : RegistroSaude[]
+  +constructor(dados)
+  +getEventos() : Evento[]
+  +getHistoricoSaude() : RegistroSaude[]
+}
+
+class Evento {
+  -data : string
+  -tipo : string
+  -titulo : string
+  -valor : number [opcional]
+  +constructor(dados)
+}
+
+class RegistroSaude {
+  -data : string
+  -score : number
+  +constructor(dados)
+}
+
+class UnidadeDAO {
+  +carregar() : Promise
+  +listar() : Promise<Unidade[]>
+  +buscarPorId(id) : Promise<Unidade ou null>
+}
+
+class ClienteDAO {
+  +carregar() : Promise
+  +listar() : Promise<Cliente[]>
+  +buscarPorId(id) : Promise<Cliente ou null>
+  +listarPorUnidade(tenantId) : Promise<Cliente[]>
+}
+
+class "buscarLista (api/http.js)" as Http <<function>> {
+  +buscarLista(caminho, opcoes)
+}
+
+Cliente "1" *-- "0..*" Evento
+Cliente "1" *-- "0..*" RegistroSaude
+Cliente "0..*" ..> "1" Unidade : tenantId
+UnidadeDAO ..> Unidade : cria
+ClienteDAO ..> Cliente : cria
+UnidadeDAO ..> Http : GET /unidades
+ClienteDAO ..> Http : GET /clientes
+@enduml

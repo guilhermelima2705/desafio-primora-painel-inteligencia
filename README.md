@@ -1,140 +1,257 @@
-# Primora — Painel de Inteligência Multi-tenant
+# Primora: Painel de Inteligência Multi-tenant
 
-Projeto Integrador da Primora, desenvolvido com React, Vite e Ant Design. O painel usa a API REST do Primora e mantém a seleção de unidade e cliente e o Comparativo com Recharts.
+Projeto Integrador do programa **Bolsa Futuro Digital (BFD)**, desenvolvido para a empresa parceira **Primora**.
 
-## Tecnologias
+A Primora atende várias unidades (tenants) e precisa acompanhar, em um só lugar, a situação de cada uma e o histórico de seus clientes. Este projeto é um **protótipo acadêmico** de painel web que resolve isso: mostra os indicadores de cada unidade, compara as unidades de forma proporcional ao porte e exibe a linha do tempo de eventos de cada cliente. Todos os dados usados são **simulados**.
 
-React e React DOM 19, React Router 8, Vite 8, Ant Design 6, Ant Design Icons 6 e Recharts 3. Código em JavaScript/JSX e CSS, com ESLint 10. As versões exatas instaladas são registradas no `package-lock.json`.
+---
 
-## Executar no Windows
+## Deploy da aplicação
 
-Pré-requisitos: Git, Node.js compatível com Vite (`^20.19.0` ou `>=22.12.0`) e npm. O ambiente restaurado foi validado com Node.js 26.13.0 e npm 11.20.0.
+- **Front-end (publicado no Vercel):** https://painel-primora.vercel.app
+- **API usada pela versão publicada:** back-end próprio do grupo, hospedado no Render: https://primora-backend-wihg.onrender.com (endpoints `/unidades` e `/clientes`).
+- **API do professor (n8n):** endpoints GET para desenvolvimento e testes, descritos em [Integração com API REST](#integração-com-api-rest).
 
-```powershell
-git clone https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia.git
-cd desafio-primora-painel-inteligencia
-Copy-Item .env.example .env.local
-npm.cmd ci
-npm.cmd run dev
-```
+## Repositórios do projeto
 
-Em uma cópia existente, crie `.env.local` a partir de `.env.example` se ainda não houver configuração local. Inicie o backend antes do Vite.
+- **Front-end (este repositório):** https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia
+- **Back-end próprio do grupo (ASP.NET Core e PostgreSQL):** mantido em repositório separado, não disponível publicamente.
 
-Acesse o endereço informado pelo Vite, normalmente `http://localhost:5173`. Para encerrar, pressione `Ctrl+C`. No VS Code, abra a pasta do repositório ou execute `code .` nessa pasta.
+## Visão geral
 
-## Páginas e interações da Sprint 4
+- **Domínio:** gestão e acompanhamento de unidades (tenants) e clientes.
+- **Entidades principais:** Unidade e Cliente. Cada cliente tem Eventos e Registros de Saúde.
+- **Objetivo:** apresentar indicadores por unidade, comparar unidades considerando o porte e mostrar o histórico de cada cliente.
+- **Origem dos dados:** a aplicação consulta dois endpoints GET. Os dados são simulados, e a base de referência é o arquivo `src/data/dataset_painel_multitenant.json`, fornecido pela empresa (4 unidades e 3 clientes).
+- **Persistência:** não há. O front-end apenas lê os dados.
+- **Multi-tenant:** o termo se refere à visualização de unidades fictícias. Não há autenticação nem isolamento real de dados.
 
-| Página | Rota | Funcionamento |
+## Tecnologias utilizadas
+
+- React 19 e React DOM
+- JavaScript (ES6+) e JSX
+- Vite 8
+- Ant Design 6 e Ant Design Icons 6
+- React Router 8
+- Recharts 3 (gráficos)
+- CSS próprio (layout responsivo)
+- ESLint 10
+- Testes com `node --test`
+
+As versões exatas estão no `package-lock.json`.
+
+## Desafio atendido
+
+Funcionalidades implementadas:
+
+- Navegação entre três telas, com menu lateral que vira menu em gaveta (Drawer) no celular.
+- **Visão Geral:** seleção de uma entre as quatro unidades, com cartão da carteira, eventos de engajamento de 7 dias, funil de 90 dias e gráficos de engajamento e saúde da carteira.
+- **Comparativo entre Unidades:** tabela, ranking e gráfico de risco proporcional das quatro unidades.
+- **Histórico de Clientes:** seleção de um entre os três clientes, com identificação, unidade, série de score de saúde e timeline de eventos.
+- Consumo dos dados por API REST (`fetch`), com estados de carregando, erro (com botão "Tentar novamente") e lista vazia.
+- Camada de modelos e DAOs.
+
+Limitações conhecidas:
+
+- Os dados são simulados e a API disponível só aceita GET. Não há cadastro, edição nem exclusão.
+- Não há autenticação nem isolamento real entre tenants.
+- Alguns campos do JSON são carregados nos modelos, mas não são exibidos nas telas: `receitaCarteira90d`, `activeUsers7d`, `funnelTrend30d` e `riscoDrivers`.
+- Os valores do Comparativo são indicadores descritivos, não previsões.
+- A seleção de unidade e de cliente volta ao valor inicial ao sair e voltar para a tela, pois não há persistência.
+
+## Requisitos funcionais (RF)
+
+| Código | Requisito | Situação |
 | --- | --- | --- |
-| Visão Geral | `/` | Select com as quatro unidades oficiais. A seleção atualiza o cartão de carteira, eventos de engajamento de sete dias e sucessos do funil de noventa dias, além dos gráficos de engajamento e saúde da carteira. |
-| Comparativo | `/comparativo` | Tabela, ranking e gráfico de risco proporcional das quatro unidades, com as fórmulas e a ordenação existentes preservadas. A tabela tem rolagem horizontal interna. |
-| Histórico de Clientes | `/historico-clientes` | Select com os três clientes oficiais. A seleção atualiza nome, identificação, unidade, quantidade de eventos, série de score de saúde e timeline em ordem da data mais recente para a mais antiga. |
+| RF01 | Navegar entre as três telas pelo menu, com a tela ativa destacada | Atendido |
+| RF02 | Selecionar uma unidade e ver seus indicadores (carteira, engajamento, funil) | Atendido |
+| RF03 | Ver gráficos de engajamento e de saúde da carteira da unidade selecionada | Atendido |
+| RF04 | Comparar as quatro unidades por risco proporcional ao porte, em tabela, ranking e gráfico | Atendido |
+| RF05 | Selecionar um cliente e ver sua identificação e a unidade a que pertence | Atendido |
+| RF06 | Ver a série de score de saúde do cliente | Atendido |
+| RF07 | Ver a timeline de eventos do cliente, do mais recente ao mais antigo | Atendido |
+| RF08 | Carregar os dados por API REST, com tratamento de carregando, erro e lista vazia | Atendido |
 
-Cada Select do Ant Design utiliza `useState` para guardar o ID e `onChange` para atualizar a escolha. A primeira unidade e o primeiro cliente retornados pela API são as seleções iniciais. Os registros são localizados por ID e transmitidos aos componentes por props. A troca ocorre sem recarregar a página. Ao sair e retornar à tela, a seleção volta ao valor inicial; não há persistência.
+## Requisitos não funcionais (RNF)
 
-Para demonstrar: percorra as quatro unidades e confira o cartão e os gráficos; depois percorra os três clientes e confira perfil, série de saúde e eventos. As tabelas acessíveis em “Consultar…” permitem conferir os valores dos gráficos. Confira também o menu no celular e a tabela do Comparativo.
+| Código | Requisito | Situação |
+| --- | --- | --- |
+| RNF01 | Aplicação em ReactJS com Vite | Atendido |
+| RNF02 | Interface com Ant Design | Atendido |
+| RNF03 | Comunicação com a API REST via `fetch` | Atendido |
+| RNF04 | Padrão DAO para acesso aos dados | Atendido |
+| RNF05 | Modelos com atributos privados, getters e validação | Atendido |
+| RNF06 | Responsividade (testada em 320, 390, 768 e 1440 pixels) | Atendido |
+| RNF07 | Código organizado por pastas e responsabilidades | Atendido |
+| RNF08 | Testes automatizados dos modelos, DAOs, API e indicadores | Atendido |
+| RNF09 | Dados identificados como simulados na interface | Atendido |
 
-## Origem e limites dos dados
+## Telas da aplicação
 
-As três telas consultam a API ASP.NET Core 10 com PostgreSQL, por meio de `GET /unidades` e `GET /clientes`. O JSON acadêmico permanece como referência para os testes. A data exibida vem de `X-Dataset-Gerado-Em` e é omitida se o cabeçalho estiver indisponível. As fórmulas do Comparativo estão em `src/pages/Comparativo/README.md`.
+**Visão Geral (computador)**
 
-## Configurar a API da Sprint 6
+![Visão Geral no computador](docs/imagens/visao-geral-desktop.png)
 
-No repositório do backend, com Docker Desktop e o contêiner do PostgreSQL já configurados:
+**Comparativo entre Unidades**
 
-```powershell
-docker compose start
-. .\scripts\Set-PrimoraEnvironment.ps1
-dotnet run --project src/Primora.Api --launch-profile https
-```
+![Comparativo entre Unidades](docs/imagens/comparativo.png)
 
-Verifique `https://localhost:7246/health`. No frontend, use `VITE_API_BASE_URL=https://localhost:7246` em `.env.local` e reinicie o Vite após mudanças nessa variável. Use uma origem permitida pela API, como `http://localhost:5173` ou `http://127.0.0.1:5173`. O navegador precisa confiar no certificado HTTPS local.
+**Histórico de Clientes (computador)**
 
-Em um futuro deploy no Vercel, configure a URL HTTPS pública da API como `VITE_API_BASE_URL` antes do build e autorize no CORS do backend a origem exata do frontend. `localhost` aponta para a máquina do visitante. Variáveis `VITE_*` ficam visíveis no navegador.
+![Histórico de Clientes no computador](docs/imagens/historico-desktop.png)
 
-## Validação
+**Comparativo entre Unidades (celular)**
 
-Execute na raiz do repositório:
+<img src="docs/imagens/comparativo-celular.png" alt="Comparativo entre Unidades no celular" width="500">
 
-```powershell
-npm.cmd run lint
-npm.cmd run build
-node --test tests src/pages/Comparativo/indicadores.test.js
-```
+**Menu em gaveta no celular**
 
-O build gera `dist/`. Para visualizá-lo, execute `npm.cmd run preview` e abra o endereço indicado.
+<img src="docs/imagens/menu-celular.png" alt="Menu em gaveta no celular" width="500">
 
-O teste de navegador em `scripts/sprint4.browser.mjs` valida as quatro unidades e os três clientes, os valores exibidos, séries dos gráficos, ordem dos eventos, ausência de recarregamento, navegação e larguras de 320, 390, 768 e 1440 pixels. Ele requer o Vite já ativo com a API local ativa e um Playwright disponível no ambiente, sem adicionar dependências ao projeto:
+## Modelagem dos dados
 
-```powershell
-# Informe o caminho de um módulo Playwright já disponível no seu ambiente.
-$env:PLAYWRIGHT_MODULE = 'C:\caminho\para\playwright\index.mjs'
-node scripts/sprint4.browser.mjs
-node scripts/sprint6.browser.mjs
-```
+Diagrama de classes (arquivo-fonte em PlantUML: [`docs/diagrama-classes.puml`](docs/diagrama-classes.puml)):
 
-O teste da Sprint 6 cobre carregamento, erro, nova tentativa, lista vazia e data do cabeçalho. Ambos os scripts usam Microsoft Edge por padrão e `http://127.0.0.1:5173`. É possível definir `BROWSER_CHANNEL` e `BASE_URL` para outro navegador instalado e endereço.
+![Diagrama de classes](docs/imagens/diagrama-classes.png)
 
-## Organização das branches
+| Classe | Descrição | Principais atributos |
+| --- | --- | --- |
+| `Unidade` | Unidade (tenant) da Primora | `id`, `nome`, `porte`, `carteiraTotalClientes`, `engagementEvents7d`, `funnel90d`, `healthDistribution`, `riscoAbsoluto` e outros |
+| `Cliente` | Cliente ligado a uma unidade pelo `tenantId` | `id`, `nome`, `tenantId`, `tenantNome`, eventos e série de saúde |
+| `Evento` | Evento da timeline do cliente | `data`, `tipo`, `titulo`, `valor` (opcional) |
+| `RegistroSaude` | Ponto da série de saúde do cliente | `data`, `score` (de 0 a 100) |
 
-`main` contém a versão estável publicada; `develop` integra o desenvolvimento. A Sprint 4 é preparada em `feature/sprint-4-interatividade`, sem publicação automática. Antes de integrar uma entrega, validar lint, build, testes e navegação responsiva.
+Relacionamentos: um `Cliente` pertence a uma `Unidade` (vínculo por `tenantId`) e possui vários `Evento` e vários `RegistroSaude`. Eventos e registros de saúde são coleções internas do cliente e não têm DAO próprio.
 
-## Sprint 5 — Modelos e DAOs
+Os modelos usam atributos privados (`#`), getters que devolvem cópias dos dados e validação que lança `TypeError` para dados inválidos. Os objetos são congelados com `Object.freeze`.
 
-Os DAOs preservam o contrato acadêmico da Sprint 5 e consultam os endpoints HTTP da Sprint 6. Cada tela carrega a lista pelo DAO e usa os objetos já recebidos ao trocar a seleção.
+## Integração com API REST
+
+O front-end consome a API apenas com requisições **GET**. Os dados são do dataset **fictício** da Primora (4 unidades e 3 clientes). A URL base fica na variável `VITE_API_BASE_URL`, e o front-end acrescenta `/unidades` ou `/clientes`. Nenhuma credencial é necessária.
+
+**Versão publicada (back-end próprio do grupo, no Render):**
+
+| Método | Endpoint | Uso |
+| --- | --- | --- |
+| GET | `https://primora-backend-wihg.onrender.com/unidades` | Lista das 4 unidades. Alimenta a Visão Geral e o Comparativo |
+| GET | `https://primora-backend-wihg.onrender.com/clientes` | Lista dos 3 clientes. Alimenta o Histórico de Clientes |
+
+**API do professor (n8n), usada em desenvolvimento e testes:**
+
+| Método | Endpoint | Uso |
+| --- | --- | --- |
+| GET | `https://n8n.incluc0de.com.br/webhook/primora/v1/unidades` | Lista das 4 unidades |
+| GET | `https://n8n.incluc0de.com.br/webhook/primora/v1/clientes` | Lista dos 3 clientes |
+
+As duas APIs entregam o mesmo formato de dados (uma lista em JSON), então o front-end funciona com qualquer uma delas, bastando trocar a `VITE_API_BASE_URL`.
+
+**Fluxo dos dados:** tela, hook `useListaDataset`, DAO (`UnidadeDAO` ou `ClienteDAO`), função `buscarLista` (`src/api/http.js`) e, por fim, o modelo (`Unidade` ou `Cliente`).
+
+| Classe DAO | Métodos assíncronos |
+| --- | --- |
+| `UnidadeDAO` | `carregar()`, `listar()`, `buscarPorId(id)` |
+| `ClienteDAO` | `carregar()`, `listar()`, `buscarPorId(id)`, `listarPorUnidade(tenantId)` |
+
+Buscas sem resultado retornam `null` e listagens vazias retornam `[]`. O contrato dos DAOs foi definido para a atividade acadêmica e não é uma API oficial da Primora.
+
+**Tratamento de erros** (`buscarLista`): falta da variável de ambiente, falha de conexão, resposta HTTP diferente de sucesso, JSON inválido e formato inesperado (que não seja uma lista). Nessas situações a tela mostra um aviso de erro e o botão "Tentar novamente". O carregamento usa `AbortController` para cancelar a consulta ao sair da tela.
+
+**Filtros e apresentação:** o front-end filtra os dados no navegador. A unidade e o cliente selecionados são localizados por `id`. O Comparativo calcula o risco proporcional como (risco + crítico) dividido pela carteira total, e a taxa de sucesso do funil como sucesso dividido por tarefas geradas. As fórmulas estão em `src/pages/Comparativo/README.md`.
+
+## Estrutura do projeto front-end
 
 ```text
-src/models/
-  Unidade.js
-  Cliente.js
-  Evento.js
-  RegistroSaude.js
-  validacao.js
-src/dao/
-  UnidadeDAO.js
-  ClienteDAO.js
-tests/sprint5/
-  modelos.test.js
-  daos.test.js
+.
+├── docs/                    (diagrama UML e imagens do README)
+├── public/
+├── scripts/                 (testes de navegador das Sprints 4 e 6)
+├── src/
+│   ├── api/                 (http.js: fetch e tratamento de erros)
+│   ├── assets/              (logo e imagens)
+│   ├── components/          (componentes reutilizáveis)
+│   │   └── layout/          (layout, menu lateral e Drawer)
+│   ├── dao/                 (UnidadeDAO e ClienteDAO)
+│   ├── data/                (dataset JSON de referência)
+│   ├── hooks/               (useListaDataset)
+│   ├── models/              (Unidade, Cliente, Evento, RegistroSaude, validacao)
+│   ├── pages/
+│   │   ├── VisaoGeral/
+│   │   ├── Comparativo/
+│   │   └── HistoricoClientes/
+│   ├── routes/              (AppRoutes.jsx)
+│   ├── styles/              (CSS global)
+│   ├── App.jsx
+│   └── main.jsx
+├── tests/
+│   ├── sprint5/             (modelos e DAOs)
+│   └── sprint6/             (camada HTTP)
+├── .env.example
+├── package.json
+└── vite.config.js
 ```
 
-- `Unidade` preserva os campos de `tenants`, incluindo as séries posicionais, o funil e a distribuição de saúde.
-- `Cliente` preserva o vínculo por `tenantId`. `getEventos()` e `getHistoricoSaude()` retornam novas listas de instâncias encapsuladas, na ordem do JSON.
-- `Evento` mantém o horário original em texto, sem fuso. O getter `valor` retorna `undefined` quando ausente e preserva zero.
-- `RegistroSaude` mantém a data original e valida o score entre 0 e 100.
+Rotas: `/` (Visão Geral), `/comparativo` e `/historico-clientes`. Qualquer outro endereço redireciona para `/`.
 
-Os modelos usam atributos privados, getters e cópias dos dados mutáveis. Os métodos dos DAOs são assíncronos:
+## Execução local
 
-| DAO | Métodos |
-| --- | --- |
-| `UnidadeDAO` | `listar()`, `buscarPorId(id)` |
-| `ClienteDAO` | `listar()`, `buscarPorId(id)`, `listarPorUnidade(tenantId)` |
+**Pré-requisitos:** Git, Node.js `^20.19.0` ou `>=22.12.0` e npm.
 
-Buscas sem correspondência retornam `null`, listagens vazias retornam `[]` e argumentos que não sejam strings não vazias são rejeitados com `TypeError`. Os IDs são comparados com o texto original.
-
-Exemplo para um módulo executado pelo Vite:
-
-```js
-import { Unidade } from './src/models/Unidade.js';
-import { Cliente } from './src/models/Cliente.js';
-import { UnidadeDAO } from './src/dao/UnidadeDAO.js';
-import { ClienteDAO } from './src/dao/ClienteDAO.js';
-
-const unidades = new UnidadeDAO();
-const clientes = new ClienteDAO();
-console.log((await unidades.listar()).length); // 4
-console.log((await unidades.buscarPorId('vetor-sul')) instanceof Unidade);
-console.log((await clientes.listar()).length); // 3
-console.log((await clientes.buscarPorId('cli-timeline-001')) instanceof Cliente);
-console.log((await clientes.listarPorUnidade('vetor-sul')).map(cliente => cliente.nome));
+```bash
+git clone https://github.com/guilhermelima2705/desafio-primora-painel-inteligencia.git
+cd desafio-primora-painel-inteligencia
+cp .env.example .env.local
+npm ci
+npm run dev
 ```
 
-Com o Node 26 disponível no ambiente do projeto, execute os testes na raiz:
+No Windows (PowerShell), use `Copy-Item .env.example .env.local` e `npm.cmd` no lugar de `npm`.
 
-```powershell
+**Configuração da API:** abra o `.env.local` e defina a URL base da API. Para rodar com a API do professor:
+
+```text
+VITE_API_BASE_URL=https://n8n.incluc0de.com.br/webhook/primora/v1
+```
+
+Para usar o back-end do grupo publicado no Render:
+
+```text
+VITE_API_BASE_URL=https://primora-backend-wihg.onrender.com
+```
+
+Reinicie o `npm run dev` depois de alterar o arquivo. Acesse `http://localhost:5173`. O `.env.local` não vai para o GitHub. O `.env.example` do repositório aponta para `https://localhost:7246` (o back-end rodando na máquina do desenvolvedor), por isso quem clonar deve usar uma das duas URLs acima.
+
+**Validação:**
+
+```bash
+npm run lint
+npm run build
 node --test tests src/pages/Comparativo/indicadores.test.js
-npm.cmd run lint
-npm.cmd run build
 ```
 
-O contrato dos DAOs foi definido para a atividade acadêmica. Ele não constitui uma API oficial da Primora.
+## Autoria
+
+- Guilherme de Souza Lima
+- Erika Priscilla Ferreira Rocha da Silva
+- Tamires dos Santos Ramos
+
+Curso: Desenvolvimento de Software com Formação Front-End React.
+Instituição: Instituto Federal de Brasília (IFB), Campus Taguatinga.
+Projeto: Projeto Integrador, Bolsa Futuro Digital (BFD). Empresa parceira: Primora.
+
+## Considerações finais
+
+Resultados: o painel entrega as três telas pedidas pela Primora, com dados vindos de API REST, camada de modelos e DAOs, interface responsiva e testes automatizados.
+
+Dificuldades:
+
+- Deixar as telas responsivas, principalmente os gráficos, a tabela do Comparativo e a linha do tempo do Histórico em telas pequenas.
+- Integrar os dados por API REST e tratar os casos de carregamento, erro e nova tentativa.
+- Organizar o trabalho em equipe com branches e Pull Requests.
+- Entender e manter a separação em camadas (tela, hook, DAO e modelo).
+
+Possíveis melhorias:
+
+- Exibir os campos que hoje não aparecem nas telas (`receitaCarteira90d`, `activeUsers7d`, `funnelTrend30d` e `riscoDrivers`).
+- Persistir a seleção de unidade e de cliente.
+- Adicionar autenticação e isolamento real entre tenants, caso o projeto evolua além do protótipo.
+- Evoluir a API para aceitar cadastro e edição, hoje apenas leitura.
